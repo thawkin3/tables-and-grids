@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "Accessible table and grid examples in React",
+  "homepage": "http://tylerhawkins.info/tables-and-grids/storybook-dist",
   "scripts": {
-    "build": "build-storybook -s public",
+    "build": "build-storybook -c .storybook -o storybook-dist -s public",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{js,jsx,md}\"",
     "format-watch": "onchange \"src/**/*.{js,jsx,md}\" -- prettier --write {{changed}}",
