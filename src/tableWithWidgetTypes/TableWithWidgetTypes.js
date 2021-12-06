@@ -1,8 +1,10 @@
 import React from 'react';
-import './Table.css';
+import { TableCell } from './TableCell';
+import '../Table.css';
 
-export const Table = ({ tableData }) => {
+export const TableWithWidgetTypes = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
+  console.log('tableHeaders', tableHeaders);
 
   return (
     <table>
@@ -15,9 +17,12 @@ export const Table = ({ tableData }) => {
       </thead>
       <tbody>
         {tableData.map(tableRow => (
-          <tr key={tableRow.id}>
+          <tr key={tableRow.id.value}>
             {Object.values(tableRow).map(tableData => (
-              <td key={tableData}>{tableData}</td>
+              <TableCell
+                key={`${tableData.widgetType}-${tableData.value}`}
+                tableData={tableData}
+              />
             ))}
           </tr>
         ))}
