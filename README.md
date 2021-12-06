@@ -1,4 +1,4 @@
-# Tables and Grids
+# React Tables and Grids
 
 Accessible table and grid examples in React
 
@@ -12,11 +12,11 @@ You can run the app locally by simply cloning the repo, running `yarn install`, 
 
 In the project directory, you can run:
 
-- `build`: Builds the app
+- `build`: Builds the Storybook app
 - `eject`: Ejects the app from using react-scripts
 - `format`: Formats the code using Prettier
 - `format-watch`: Formats the code using Prettier in watch mode
-- `start`: Starts the app in development mode
+- `start`: Starts the Storybook app in development mode
 - `test`: Runs the tests in watch mode
 
 ## Resources

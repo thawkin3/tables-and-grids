@@ -4,14 +4,12 @@
   "private": true,
   "description": "Accessible table and grid examples in React",
   "scripts": {
-    "build": "react-scripts build",
+    "build": "build-storybook -s public",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{js,jsx,md}\"",
     "format-watch": "onchange \"src/**/*.{js,jsx,md}\" -- prettier --write {{changed}}",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "start": "start-storybook -p 6006 -s public",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
