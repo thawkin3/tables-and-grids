@@ -5,7 +5,7 @@ export const BasicTable = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
 
   return (
-    <table>
+    <table aria-label="Basic table">
       <thead>
         <tr>
           {tableHeaders.map(tableHeader => (

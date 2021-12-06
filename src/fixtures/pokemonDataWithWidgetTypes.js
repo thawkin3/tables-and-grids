@@ -1,6 +1,10 @@
 export const pokemonDataWithWidgetTypes = [
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Bulbasaur',
+    },
     id: { widgetType: 'text', value: 1 },
     name: {
       widgetType: 'link',
@@ -11,7 +15,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Ivysaur',
+    },
     id: { widgetType: 'text', value: 2 },
     name: {
       widgetType: 'link',
@@ -22,7 +30,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'Evolves from Bulbasaur' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Venasaur',
+    },
     id: { widgetType: 'text', value: 3 },
     name: {
       widgetType: 'link',
@@ -33,7 +45,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'Evolves from Ivysaur' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Charmander',
+    },
     id: { widgetType: 'text', value: 4 },
     name: {
       widgetType: 'link',
@@ -44,7 +60,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Charmeleon',
+    },
     id: { widgetType: 'text', value: 5 },
     name: {
       widgetType: 'link',
@@ -55,7 +75,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'Evolves from Charmander' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Charizard',
+    },
     id: { widgetType: 'text', value: 6 },
     name: {
       widgetType: 'link',
@@ -66,7 +90,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'Evolves from Charmeleon' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Squirtle',
+    },
     id: { widgetType: 'text', value: 7 },
     name: {
       widgetType: 'link',
@@ -77,7 +105,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Wartortle',
+    },
     id: { widgetType: 'text', value: 8 },
     name: {
       widgetType: 'link',
@@ -88,7 +120,11 @@ export const pokemonDataWithWidgetTypes = [
     notes: { widgetType: 'text', value: 'Evolves from Squirtle' },
   },
   {
-    select: { widgetType: 'checkbox', value: false },
+    select: {
+      widgetType: 'checkbox',
+      value: false,
+      'aria-label': 'Select Row - Blastoise',
+    },
     id: { widgetType: 'text', value: 9 },
     name: {
       widgetType: 'link',

@@ -2,11 +2,14 @@ import React from 'react';
 import { TableCell } from '../widgetTypes/TableCell';
 import '../Table.css';
 
-export const TableWithWidgetTypes = ({ tableData }) => {
+export const TableGrid = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
 
   return (
-    <table aria-label="Table with various widget types like checkboxes, text, and links">
+    <table
+      tabIndex="0"
+      aria-label="Table grid. Navigate cells using the arrow keys."
+    >
       <thead>
         <tr>
           {tableHeaders.map(tableHeader => (
