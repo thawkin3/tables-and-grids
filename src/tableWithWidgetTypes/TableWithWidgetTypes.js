@@ -4,7 +4,6 @@ import '../Table.css';
 
 export const TableWithWidgetTypes = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
-  console.log('tableHeaders', tableHeaders);
 
   return (
     <table>

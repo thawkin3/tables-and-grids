@@ -5,7 +5,7 @@ import { TableWithWidgetTypes } from './tableWithWidgetTypes/TableWithWidgetType
 import { pokemonDataWithWidgetTypes } from './fixtures/pokemonDataWithWidgetTypes';
 
 export default {
-  title: 'Tables',
+  title: 'Read-Only Tables',
 };
 
 export const _BasicTable = () => <BasicTable tableData={basicPokemonData} />;
