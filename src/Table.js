@@ -17,7 +17,7 @@ export const Table = ({ tableData }) => {
         {tableData.map(tableRow => (
           <tr key={tableRow.id}>
             {Object.values(tableRow).map(tableData => (
-              <td>{tableData}</td>
+              <td key={tableData}>{tableData}</td>
             ))}
           </tr>
         ))}
