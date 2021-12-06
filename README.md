@@ -4,6 +4,8 @@ Accessible table and grid examples in React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [Storybook](https://storybook.js.org/docs/react/get-started/install).
 
+You can find the hosted Storybook app here: http://tylerhawkins.info/tables-and-grids/storybook-dist
+
 ## Running the App Locally
 
 You can run the app locally by simply cloning the repo, running `yarn install`, and then running `yarn start`. This will start the Storybook app and open it in your browser.
