@@ -56,6 +56,21 @@ export const _TableWithWidgetTypes = () => (
 export const _TableGrid = () => (
   <>
     <p>
+      <b>WORK IN PROGRESS. TODO:</b>
+      <ul>
+        <li>
+          Enter grid navigation mode when focusing on the grid (through tab or
+          click)
+        </li>
+        <li>Grid navigation between cells using arrow keys</li>
+        <li>Visible focus indicator for each cell</li>
+        <li>
+          Leave grid navigation mode when grid loses focus (through tab away of
+          click away)
+        </li>
+      </ul>
+    </p>
+    <p>
       This is a table grid capable of rendering various widget types in the
       table cells. This table features checkboxes, text, and links. The checkbox
       and link elements are naturally tabbable, focusable, and interactive. But,
