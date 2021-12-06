@@ -3477,7 +3477,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/theming@6.4.8":
+"@storybook/theming@6.4.8", "@storybook/theming@^6.4.8":
   version "6.4.8"
   resolved "https://artifactory-uw2.adobeitc.com/artifactory/api/npm/npm-wf-dev/@storybook/theming/-/theming-6.4.8.tgz#09e7aa99df9607e602a3dfb4ee5e0cbde434031a"
   integrity sha1-Ceeqmd+WB+YCo9+07l4MveQ0Axo=
