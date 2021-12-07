@@ -1,14 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TableCell } from '../widgetTypes/TableCell';
 import '../Table.css';
 
 export const TableGrid = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
+  const tableRowCount = tableData.length;
+  const tableColumnCount = tableHeaders.length;
+  const lastRowIndex = tableRowCount - 1;
+  const lastColumnIndex = tableColumnCount - 1;
+
+  const [currentCellXCoordinate, setCurrentCellXCoordinate] = useState(0);
+  const [currentCellYCoordinate, setCurrentCellYCoordinate] = useState(0);
+
+  const handleGridKeyDown = e => {
+    console.log('handleGridKeyDown', e.key);
+    const key = e.key;
+
+    switch (key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        setCurrentCellYCoordinate(Math.max(currentCellYCoordinate - 1, 0));
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        setCurrentCellYCoordinate(
+          Math.min(currentCellYCoordinate + 1, lastRowIndex)
+        );
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        setCurrentCellXCoordinate(Math.max(currentCellXCoordinate - 1, 0));
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        setCurrentCellXCoordinate(
+          Math.min(currentCellXCoordinate + 1, lastColumnIndex)
+        );
+        break;
+      default:
+      // do nothing
+    }
+  };
 
   return (
     <table
       tabIndex="0"
       aria-label="Table grid. Navigate cells using the arrow keys."
+      role="grid"
+      onKeyDown={handleGridKeyDown}
     >
       <thead>
         <tr>
@@ -18,14 +57,22 @@ export const TableGrid = ({ tableData }) => {
         </tr>
       </thead>
       <tbody>
-        {tableData.map(tableRow => (
+        {tableData.map((tableRow, rowIndex) => (
           <tr key={tableRow.id.value}>
-            {Object.values(tableRow).map(tableData => (
-              <TableCell
-                key={`${tableData.widgetType}-${tableData.value}`}
-                tableData={tableData}
-              />
-            ))}
+            {Object.values(tableRow).map((tableData, columnIndex) => {
+              const isCurrentFocusedCell =
+                rowIndex === currentCellYCoordinate &&
+                columnIndex === currentCellXCoordinate;
+
+              return (
+                <TableCell
+                  key={`${columnIndex}-${rowIndex}-${tableData.widgetType}-${tableData.value}`}
+                  tableData={tableData}
+                  tabIndex={-1} // tabIndex should go on the <td> element except for content like buttons or links. Then it should go right on the button or link.
+                  isCurrentFocusedCell={isCurrentFocusedCell}
+                />
+              );
+            })}
           </tr>
         ))}
       </tbody>
