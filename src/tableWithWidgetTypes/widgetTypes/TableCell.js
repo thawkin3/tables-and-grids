@@ -1,21 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { TableCellCheckbox } from './TableCellCheckbox';
 import { TableCellLink } from './TableCellLink';
 import { TableCellText } from './TableCellText';
 
-export const TableCell = ({
-  tableData,
-  isCurrentFocusedCell,
-  ...restProps
-}) => {
-  const tableCellRef = useRef(null);
-
-  useEffect(() => {
-    if (isCurrentFocusedCell) {
-      tableCellRef.current?.focus();
-    }
-  }, [isCurrentFocusedCell]);
-
+export const TableCell = ({ tableData }) => {
   const getTableCellWidget = widgetType => {
     switch (widgetType) {
       case 'checkbox':
@@ -28,9 +16,5 @@ export const TableCell = ({
     }
   };
 
-  return (
-    <td ref={tableCellRef} {...restProps}>
-      {getTableCellWidget(tableData.widgetType)}
-    </td>
-  );
+  return <td>{getTableCellWidget(tableData.widgetType)}</td>;
 };
