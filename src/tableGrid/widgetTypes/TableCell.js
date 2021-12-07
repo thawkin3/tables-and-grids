@@ -3,7 +3,11 @@ import { TableCellCheckbox } from './TableCellCheckbox';
 import { TableCellLink } from './TableCellLink';
 import { TableCellText } from './TableCellText';
 
-export const TableCell = ({ tableData, isCurrentFocusedCell }) => {
+export const TableCell = ({
+  tableData,
+  isCurrentFocusedCell,
+  setIsCurrentFocusedCell,
+}) => {
   const getTableCellWidget = widgetType => {
     switch (widgetType) {
       case 'checkbox':
@@ -11,6 +15,7 @@ export const TableCell = ({ tableData, isCurrentFocusedCell }) => {
           <TableCellCheckbox
             tableData={tableData}
             isCurrentFocusedCell={isCurrentFocusedCell}
+            setIsCurrentFocusedCell={setIsCurrentFocusedCell}
           />
         );
       case 'link':
@@ -18,6 +23,7 @@ export const TableCell = ({ tableData, isCurrentFocusedCell }) => {
           <TableCellLink
             tableData={tableData}
             isCurrentFocusedCell={isCurrentFocusedCell}
+            setIsCurrentFocusedCell={setIsCurrentFocusedCell}
           />
         );
       case 'text':
@@ -26,6 +32,7 @@ export const TableCell = ({ tableData, isCurrentFocusedCell }) => {
           <TableCellText
             tableData={tableData}
             isCurrentFocusedCell={isCurrentFocusedCell}
+            setIsCurrentFocusedCell={setIsCurrentFocusedCell}
           />
         );
     }

@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-export const TableCellText = ({ tableData, isCurrentFocusedCell }) => {
+export const TableCellText = ({
+  tableData,
+  isCurrentFocusedCell,
+  setIsCurrentFocusedCell,
+}) => {
   const tableCellRef = useRef(null);
 
   useEffect(() => {
@@ -10,7 +14,7 @@ export const TableCellText = ({ tableData, isCurrentFocusedCell }) => {
   }, [isCurrentFocusedCell]);
 
   return (
-    <td tabIndex={-1} ref={tableCellRef}>
+    <td tabIndex={-1} ref={tableCellRef} onClick={setIsCurrentFocusedCell}>
       {tableData.value}
     </td>
   );

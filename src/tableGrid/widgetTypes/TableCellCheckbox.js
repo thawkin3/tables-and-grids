@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-export const TableCellCheckbox = ({ tableData, isCurrentFocusedCell }) => {
+export const TableCellCheckbox = ({
+  tableData,
+  isCurrentFocusedCell,
+  setIsCurrentFocusedCell,
+}) => {
   const tableCellRef = useRef(null);
 
   useEffect(() => {
@@ -10,7 +14,7 @@ export const TableCellCheckbox = ({ tableData, isCurrentFocusedCell }) => {
   }, [isCurrentFocusedCell]);
 
   return (
-    <td>
+    <td onClick={setIsCurrentFocusedCell}>
       <input
         type="checkbox"
         value={tableData.value}

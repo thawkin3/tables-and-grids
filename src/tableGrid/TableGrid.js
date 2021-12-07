@@ -63,11 +63,17 @@ export const TableGrid = ({ tableData }) => {
                 rowIndex === currentCellYCoordinate &&
                 columnIndex === currentCellXCoordinate;
 
+              const setIsCurrentFocusedCell = () => {
+                setCurrentCellXCoordinate(columnIndex);
+                setCurrentCellYCoordinate(rowIndex);
+              };
+
               return (
                 <TableCell
                   key={`${columnIndex}-${rowIndex}-${tableData.widgetType}-${tableData.value}`}
                   tableData={tableData}
                   isCurrentFocusedCell={isCurrentFocusedCell}
+                  setIsCurrentFocusedCell={setIsCurrentFocusedCell}
                 />
               );
             })}

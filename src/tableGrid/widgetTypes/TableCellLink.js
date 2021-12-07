@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-export const TableCellLink = ({ tableData, isCurrentFocusedCell }) => {
+export const TableCellLink = ({
+  tableData,
+  isCurrentFocusedCell,
+  setIsCurrentFocusedCell,
+}) => {
   const tableCellRef = useRef(null);
 
   useEffect(() => {
@@ -10,7 +14,7 @@ export const TableCellLink = ({ tableData, isCurrentFocusedCell }) => {
   }, [isCurrentFocusedCell]);
 
   return (
-    <td>
+    <td onClick={setIsCurrentFocusedCell}>
       <a href={tableData.href} tabIndex={-1} ref={tableCellRef}>
         {tableData.value}
       </a>
