@@ -76,10 +76,23 @@ export const _TableGrid = () => (
     <p>
       Keyboard users can tab to the grid itself, which is a single tab stop.
       After that, keyboard users can navigate the grid using the arrow keys to
-      move between table cells. Each table cell is tabbable/focusable regardless
-      of whether or not the cell contains interactive content. This is important
-      so as to not block keyboard users from navigating to certain cells. When
-      focusing on an interactive cell, keyboard users can interact with the
+      move between table cells.
+    </p>
+    <p>
+      Each table cell is tabbable/focusable regardless of whether or not the
+      cell contains interactive content. This is important so as to not block
+      keyboard users from navigating to certain cells.
+    </p>
+    <p>
+      Whether the focus goes to the cell itself or to the widget within the cell
+      depends on the type of widget. For interactive widgets like links,
+      buttons, or checkboxes that require no keyboard arrow keys to operate,
+      focus is sent directly to the widget. For static widgets like plain text
+      or for interactive widgets that require keyboard arrow keys to operate,
+      like a text input or a listbox, focus is sent to the table cell.
+    </p>
+    <p>
+      When focusing on an interactive cell, keyboard users can interact with the
       checkboxes and links through normal keyboard commands (Space to
       check/uncheck the checkboxes and Enter to visit a link).
     </p>
