@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell } from '../widgetTypes/TableCell';
+import { TableCell } from './widgetTypes/TableCell';
 import '../Table.css';
 
 export const TableWithWidgetTypes = ({ tableData }) => {
