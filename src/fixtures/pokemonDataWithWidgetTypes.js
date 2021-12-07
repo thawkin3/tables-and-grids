@@ -2,7 +2,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Bulbasaur',
     },
     id: { widgetType: 'text', value: 1 },
@@ -17,7 +16,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Ivysaur',
     },
     id: { widgetType: 'text', value: 2 },
@@ -32,7 +30,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Venasaur',
     },
     id: { widgetType: 'text', value: 3 },
@@ -47,7 +44,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Charmander',
     },
     id: { widgetType: 'text', value: 4 },
@@ -62,7 +58,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Charmeleon',
     },
     id: { widgetType: 'text', value: 5 },
@@ -77,7 +72,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Charizard',
     },
     id: { widgetType: 'text', value: 6 },
@@ -92,7 +86,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Squirtle',
     },
     id: { widgetType: 'text', value: 7 },
@@ -107,7 +100,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Wartortle',
     },
     id: { widgetType: 'text', value: 8 },
@@ -122,7 +114,6 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      value: false,
       'aria-label': 'Select Row - Blastoise',
     },
     id: { widgetType: 'text', value: 9 },
