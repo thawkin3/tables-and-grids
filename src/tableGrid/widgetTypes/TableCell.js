@@ -1,36 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { TableCellCheckbox } from './TableCellCheckbox';
 import { TableCellLink } from './TableCellLink';
 import { TableCellText } from './TableCellText';
 
-export const TableCell = ({
-  tableData,
-  isCurrentFocusedCell,
-  ...restProps
-}) => {
-  const tableCellRef = useRef(null);
-
-  useEffect(() => {
-    if (isCurrentFocusedCell) {
-      tableCellRef.current?.focus();
-    }
-  }, [isCurrentFocusedCell]);
-
+export const TableCell = ({ tableData, isCurrentFocusedCell }) => {
   const getTableCellWidget = widgetType => {
     switch (widgetType) {
       case 'checkbox':
-        return <TableCellCheckbox tableData={tableData} />;
+        return (
+          <TableCellCheckbox
+            tableData={tableData}
+            isCurrentFocusedCell={isCurrentFocusedCell}
+          />
+        );
       case 'link':
-        return <TableCellLink tableData={tableData} />;
+        return (
+          <TableCellLink
+            tableData={tableData}
+            isCurrentFocusedCell={isCurrentFocusedCell}
+          />
+        );
       case 'text':
       default:
-        return <TableCellText tableData={tableData} />;
+        return (
+          <TableCellText
+            tableData={tableData}
+            isCurrentFocusedCell={isCurrentFocusedCell}
+          />
+        );
     }
   };
 
-  return (
-    <td ref={tableCellRef} {...restProps}>
-      {getTableCellWidget(tableData.widgetType)}
-    </td>
-  );
+  return getTableCellWidget(tableData.widgetType);
 };

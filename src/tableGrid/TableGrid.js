@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TableCell } from '../widgetTypes/TableCell';
+import { TableCell } from './widgetTypes/TableCell';
 import '../Table.css';
 
 export const TableGrid = ({ tableData }) => {
@@ -13,7 +13,6 @@ export const TableGrid = ({ tableData }) => {
   const [currentCellYCoordinate, setCurrentCellYCoordinate] = useState(0);
 
   const handleGridKeyDown = e => {
-    console.log('handleGridKeyDown', e.key);
     const key = e.key;
 
     switch (key) {
@@ -68,7 +67,6 @@ export const TableGrid = ({ tableData }) => {
                 <TableCell
                   key={`${columnIndex}-${rowIndex}-${tableData.widgetType}-${tableData.value}`}
                   tableData={tableData}
-                  tabIndex={-1} // tabIndex should go on the <td> element except for content like buttons or links. Then it should go right on the button or link.
                   isCurrentFocusedCell={isCurrentFocusedCell}
                 />
               );
