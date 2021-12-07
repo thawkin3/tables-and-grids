@@ -11,6 +11,7 @@ export default {
 
 export const _BasicTable = () => (
   <>
+    <h1>Basic Table</h1>
     <p>
       This is a basic table. The table content is read-only, so none of the
       cells are tabbable, focusable, or interactive. The columns are not
@@ -26,6 +27,7 @@ export const _BasicTable = () => (
 
 export const _TableWithWidgetTypes = () => (
   <>
+    <h1>Table with Various Widget Types</h1>
     <p>
       This is a table capable of rendering various widget types in the table
       cells. This table features checkboxes, text, and links. The checkbox and
@@ -55,6 +57,7 @@ export const _TableWithWidgetTypes = () => (
 
 export const _TableGrid = () => (
   <>
+    <h1>Table Grid</h1>
     <p>
       This is a table grid capable of rendering various widget types in the
       table cells. This table features checkboxes, text, and links. The checkbox
