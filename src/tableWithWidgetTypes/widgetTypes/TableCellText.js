@@ -1,1 +1,1 @@
-export const TableCellText = ({ tableData }) => tableData.value;
+export const TableCellText = ({ tableCellData }) => tableCellData.value;

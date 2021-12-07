@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const TableCellLink = ({ tableData }) => (
-  <a href={tableData.href}>{tableData.value}</a>
+export const TableCellLink = ({ tableCellData }) => (
+  <a href={tableCellData.href}>{tableCellData.value}</a>
 );

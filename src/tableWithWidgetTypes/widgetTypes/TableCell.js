@@ -3,18 +3,18 @@ import { TableCellCheckbox } from './TableCellCheckbox';
 import { TableCellLink } from './TableCellLink';
 import { TableCellText } from './TableCellText';
 
-export const TableCell = ({ tableData }) => {
+export const TableCell = ({ tableCellData }) => {
   const getTableCellWidget = widgetType => {
     switch (widgetType) {
       case 'checkbox':
-        return <TableCellCheckbox tableData={tableData} />;
+        return <TableCellCheckbox tableCellData={tableCellData} />;
       case 'link':
-        return <TableCellLink tableData={tableData} />;
+        return <TableCellLink tableCellData={tableCellData} />;
       case 'text':
       default:
-        return <TableCellText tableData={tableData} />;
+        return <TableCellText tableCellData={tableCellData} />;
     }
   };
 
-  return <td>{getTableCellWidget(tableData.widgetType)}</td>;
+  return <td>{getTableCellWidget(tableCellData.widgetType)}</td>;
 };

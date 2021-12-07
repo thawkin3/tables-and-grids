@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 export const TableCellText = ({
-  tableData,
+  tableCellData,
   isCurrentFocusedCell,
   setIsCurrentFocusedCell,
 }) => {
@@ -15,7 +15,7 @@ export const TableCellText = ({
 
   return (
     <td tabIndex={-1} ref={tableCellRef} onClick={setIsCurrentFocusedCell}>
-      {tableData.value}
+      {tableCellData.value}
     </td>
   );
 };

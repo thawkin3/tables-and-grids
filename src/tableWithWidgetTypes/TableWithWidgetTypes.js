@@ -17,10 +17,10 @@ export const TableWithWidgetTypes = ({ tableData }) => {
       <tbody>
         {tableData.map(tableRow => (
           <tr key={tableRow.id.value}>
-            {Object.values(tableRow).map(tableData => (
+            {Object.values(tableRow).map(tableCellData => (
               <TableCell
-                key={`${tableData.widgetType}-${tableData.value}`}
-                tableData={tableData}
+                key={`${tableCellData.widgetType}-${tableCellData.value}`}
+                tableCellData={tableCellData}
               />
             ))}
           </tr>

@@ -16,8 +16,8 @@ export const BasicTable = ({ tableData }) => {
       <tbody>
         {tableData.map(tableRow => (
           <tr key={tableRow.id}>
-            {Object.values(tableRow).map(tableData => (
-              <td key={tableData}>{tableData}</td>
+            {Object.values(tableRow).map(tableCellData => (
+              <td key={tableCellData}>{tableCellData}</td>
             ))}
           </tr>
         ))}

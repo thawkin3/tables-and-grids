@@ -148,7 +148,7 @@ export const TableGrid = ({ tableData }) => {
       <tbody>
         {tableData.map((tableRow, rowIndex) => (
           <tr key={tableRow.id.value}>
-            {Object.values(tableRow).map((tableData, columnIndex) => {
+            {Object.values(tableRow).map((tableCellData, columnIndex) => {
               const isCurrentFocusedCell =
                 rowIndex === currentCellYCoordinate &&
                 columnIndex === currentCellXCoordinate;
@@ -160,8 +160,8 @@ export const TableGrid = ({ tableData }) => {
 
               return (
                 <TableCell
-                  key={`${columnIndex}-${rowIndex}-${tableData.widgetType}-${tableData.value}`}
-                  tableData={tableData}
+                  key={`${columnIndex}-${rowIndex}-${tableCellData.widgetType}-${tableCellData.value}`}
+                  tableCellData={tableCellData}
                   isCurrentFocusedCell={isCurrentFocusedCell}
                   setIsCurrentFocusedCell={setIsCurrentFocusedCell}
                 />

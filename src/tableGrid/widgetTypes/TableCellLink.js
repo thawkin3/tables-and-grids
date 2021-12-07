@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 export const TableCellLink = ({
-  tableData,
+  tableCellData,
   isCurrentFocusedCell,
   setIsCurrentFocusedCell,
 }) => {
@@ -15,8 +15,8 @@ export const TableCellLink = ({
 
   return (
     <td onClick={setIsCurrentFocusedCell}>
-      <a href={tableData.href} tabIndex={-1} ref={tableCellRef}>
-        {tableData.value}
+      <a href={tableCellData.href} tabIndex={-1} ref={tableCellRef}>
+        {tableCellData.value}
       </a>
     </td>
   );

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const TableCellCheckbox = ({ tableData }) => (
+export const TableCellCheckbox = ({ tableCellData }) => (
   <input
     type="checkbox"
-    checked={tableData.value}
-    aria-label={tableData['aria-label']}
+    checked={tableCellData.value}
+    aria-label={tableCellData['aria-label']}
   />
 );
