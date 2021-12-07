@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TableCell } from './widgetTypes/TableCell';
 import '../Table.css';
 
@@ -9,44 +9,100 @@ export const TableGrid = ({ tableData }) => {
   const lastRowIndex = tableRowCount - 1;
   const lastColumnIndex = tableColumnCount - 1;
 
-  const [currentCellXCoordinate, setCurrentCellXCoordinate] = useState(0);
-  const [currentCellYCoordinate, setCurrentCellYCoordinate] = useState(0);
+  const [currentCellXCoordinate, setCurrentCellXCoordinate] = useState(null);
+  const [currentCellYCoordinate, setCurrentCellYCoordinate] = useState(null);
+
+  const tableGridRef = useRef(null);
+
+  const handleGridFocus = e => {
+    if (e.target === tableGridRef.current) {
+      setCurrentCellXCoordinate(null);
+      setCurrentCellYCoordinate(null);
+    }
+  };
 
   const handleGridKeyDown = e => {
+    e.persist();
     const key = e.key;
 
     switch (key) {
       case 'ArrowUp':
-        e.preventDefault();
-        setCurrentCellYCoordinate(Math.max(currentCellYCoordinate - 1, 0));
+        handleArrowUp(e);
         break;
       case 'ArrowDown':
-        e.preventDefault();
-        setCurrentCellYCoordinate(
-          Math.min(currentCellYCoordinate + 1, lastRowIndex)
-        );
+        handleArrowDown(e);
         break;
       case 'ArrowLeft':
-        e.preventDefault();
-        setCurrentCellXCoordinate(Math.max(currentCellXCoordinate - 1, 0));
+        handleArrowLeft(e);
         break;
       case 'ArrowRight':
-        e.preventDefault();
-        setCurrentCellXCoordinate(
-          Math.min(currentCellXCoordinate + 1, lastColumnIndex)
-        );
+        handleArrowRight(e);
         break;
       default:
       // do nothing
     }
   };
 
+  const handleArrowUp = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellYCoordinate(Math.max(currentCellYCoordinate - 1, 0));
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleArrowDown = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellYCoordinate(
+        Math.min(currentCellYCoordinate + 1, lastRowIndex)
+      );
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleArrowLeft = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellXCoordinate(Math.max(currentCellXCoordinate - 1, 0));
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleArrowRight = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellXCoordinate(
+        Math.min(currentCellXCoordinate + 1, lastColumnIndex)
+      );
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleArrowKeysForFirstFocusedCell = () => {
+    setCurrentCellXCoordinate(0);
+    setCurrentCellYCoordinate(0);
+  };
+
+  const areAnyCellsCurrentlyFocused = () =>
+    currentCellXCoordinate !== null && currentCellYCoordinate !== null;
+
   return (
     <table
       tabIndex="0"
       aria-label="Table grid. Navigate cells using the arrow keys."
       role="grid"
+      ref={tableGridRef}
       onKeyDown={handleGridKeyDown}
+      onFocus={handleGridFocus}
     >
       <thead>
         <tr>
