@@ -38,6 +38,12 @@ export const TableGrid = ({ tableData }) => {
       case 'ArrowRight':
         handleArrowRight(e);
         break;
+      case 'Home':
+        handleHome(e);
+        break;
+      case 'End':
+        handleEnd(e);
+        break;
       default:
       // do nothing
     }
@@ -82,6 +88,34 @@ export const TableGrid = ({ tableData }) => {
       setCurrentCellXCoordinate(
         Math.min(currentCellXCoordinate + 1, lastColumnIndex)
       );
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleHome = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellXCoordinate(0);
+
+      if (e.ctrlKey) {
+        setCurrentCellYCoordinate(0);
+      }
+    } else {
+      handleArrowKeysForFirstFocusedCell();
+    }
+  };
+
+  const handleEnd = e => {
+    e.preventDefault();
+
+    if (areAnyCellsCurrentlyFocused()) {
+      setCurrentCellXCoordinate(lastColumnIndex);
+
+      if (e.ctrlKey) {
+        setCurrentCellYCoordinate(lastRowIndex);
+      }
     } else {
       handleArrowKeysForFirstFocusedCell();
     }
