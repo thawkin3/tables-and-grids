@@ -6,7 +6,7 @@ export const basicPokemonData = [
     notes: 'One of the three starter Pokémon',
   },
   { id: 2, name: 'Ivysaur', type: 'Grass', notes: 'Evolves from Bulbasaur' },
-  { id: 3, name: 'Venasaur', type: 'Grass', notes: 'Evolves from Ivysaur' },
+  { id: 3, name: 'Venusaur', type: 'Grass', notes: 'Evolves from Ivysaur' },
   {
     id: 4,
     name: 'Charmander',

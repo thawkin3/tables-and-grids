@@ -8,7 +8,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Bulbasaur',
-      href: 'https://en.wikipedia.org/wiki/Bulbasaur',
+      href: 'https://www.pokemon.com/us/pokedex/bulbasaur',
     },
     type: { widgetType: 'text', value: 'Grass' },
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
@@ -22,7 +22,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Ivysaur',
-      href: 'https://en.wikipedia.org/wiki/Ivysaur',
+      href: 'https://www.pokemon.com/us/pokedex/ivysaur',
     },
     type: { widgetType: 'text', value: 'Grass' },
     notes: { widgetType: 'text', value: 'Evolves from Bulbasaur' },
@@ -30,13 +30,13 @@ export const pokemonDataWithWidgetTypes = [
   {
     select: {
       widgetType: 'checkbox',
-      'aria-label': 'Select Row - Venasaur',
+      'aria-label': 'Select Row - Venusaur',
     },
     id: { widgetType: 'text', value: 3 },
     name: {
       widgetType: 'link',
-      value: 'Venasaur',
-      href: 'https://en.wikipedia.org/wiki/Venasaur',
+      value: 'Venusaur',
+      href: 'https://www.pokemon.com/us/pokedex/venusaur',
     },
     type: { widgetType: 'text', value: 'Grass' },
     notes: { widgetType: 'text', value: 'Evolves from Ivysaur' },
@@ -50,7 +50,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Charmander',
-      href: 'https://en.wikipedia.org/wiki/Charmander',
+      href: 'https://www.pokemon.com/us/pokedex/charmander',
     },
     type: { widgetType: 'text', value: 'Fire' },
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
@@ -64,7 +64,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Charmeleon',
-      href: 'https://en.wikipedia.org/wiki/Charmeleon',
+      href: 'https://www.pokemon.com/us/pokedex/charmeleon',
     },
     type: { widgetType: 'text', value: 'Fire' },
     notes: { widgetType: 'text', value: 'Evolves from Charmander' },
@@ -78,7 +78,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Charizard',
-      href: 'https://en.wikipedia.org/wiki/Charizard',
+      href: 'https://www.pokemon.com/us/pokedex/charizard',
     },
     type: { widgetType: 'text', value: 'Fire' },
     notes: { widgetType: 'text', value: 'Evolves from Charmeleon' },
@@ -92,7 +92,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Squirtle',
-      href: 'https://en.wikipedia.org/wiki/Squirtle',
+      href: 'https://www.pokemon.com/us/pokedex/squirtle',
     },
     type: { widgetType: 'text', value: 'Water' },
     notes: { widgetType: 'text', value: 'One of the three starter Pokémon' },
@@ -106,7 +106,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Wartortle',
-      href: 'https://en.wikipedia.org/wiki/Wartortle',
+      href: 'https://www.pokemon.com/us/pokedex/wartortle',
     },
     type: { widgetType: 'text', value: 'Water' },
     notes: { widgetType: 'text', value: 'Evolves from Squirtle' },
@@ -120,7 +120,7 @@ export const pokemonDataWithWidgetTypes = [
     name: {
       widgetType: 'link',
       value: 'Blastoise',
-      href: 'https://en.wikipedia.org/wiki/Blastoise',
+      href: 'https://www.pokemon.com/us/pokedex/blastoise',
     },
     type: { widgetType: 'text', value: 'Water' },
     notes: { widgetType: 'text', value: 'Evolves from Wartortle' },
