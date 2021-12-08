@@ -27,5 +27,24 @@ table tr:hover {
   background-color: #ddd;
 }
 
+.textInput {
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  border: 0.0625rem solid #071a32;
+  border-radius: 0.25rem;
+  background: #fff;
+  color: #071a32;
+  position: relative;
+  width: 90%
+}
 
-/*# sourceMappingURL=main.2354bb65.chunk.css.map*/
+.textInput:focus,
+.textInput:hover {
+  outline: none;
+  border: 0.0625rem solid #04AA6D;
+  border-bottom: 0.25rem solid #04AA6D;
+  padding: 0.5rem 0.5rem 0.3125rem 0.5rem;
+}
+
+
+/*# sourceMappingURL=main.9a8f6b56.chunk.css.map*/
