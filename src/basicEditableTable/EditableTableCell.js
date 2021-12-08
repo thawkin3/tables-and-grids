@@ -57,6 +57,7 @@ export const EditableTableCell = ({
         break;
       case 'Escape':
       case 'Esc':
+        discardCellDataChanges();
         leaveEditMode();
         break;
       default:
@@ -68,6 +69,10 @@ export const EditableTableCell = ({
     const updatedTableData = [...currentTableData];
     updatedTableData[rowIndex][headerKey] = tableCellInputValue;
     setCurrentTableData(updatedTableData);
+  };
+
+  const discardCellDataChanges = () => {
+    setTableCellInputValue(tableCellData);
   };
 
   const leaveEditMode = () => {

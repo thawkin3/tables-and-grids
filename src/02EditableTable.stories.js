@@ -25,8 +25,8 @@ export const _BasicEditableTable = () => (
         the same column of the previous row)
       </li>
       <li>
-        Make sure the Escape key discards edits, both in the View Mode text and
-        in the Edit Mode text input
+        Make sure the focus is managed properly when changing between View Mode
+        and Edit Mode, and vice versa
       </li>
       <li>Add appropriate aria-labels and instructions for screen readers</li>
     </ul>
