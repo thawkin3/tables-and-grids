@@ -14,8 +14,15 @@ export const _BasicEditableTable = () => (
     </p>
     <ul>
       <li>
-        When in Edit Mode, pressing Tab should navigate from the end of one row
-        to the beginning of the next row
+        When in Edit Mode, pressing Tab from the end of one row should navigate
+        to the beginning of the next row (and pressing Shift+Tab from the
+        beginning of one row should navigate to the end of the previous row)
+      </li>
+      <li>
+        When in Edit Mode, pressing Enter from a cell in any given row should
+        navigate to the cell in the same column of the next row (and pressing
+        Shift+Enter from a cell in any given row should navigate to the cell in
+        the same column of the previous row)
       </li>
       <li>
         Make sure the Escape key discards edits, both in the View Mode text and
@@ -42,9 +49,12 @@ export const _BasicEditableTable = () => (
       When in View Mode, keyboard users can use the Tab key to navigate each
       cell and then press the Enter key on any cell to enter Edit Mode for that
       specific cell's row. When in Edit Mode, keyboard users can change any of
-      the data and then press the Enter key or Escape key to leave Edit Mode and
-      go back to View Mode. If the Escape Key is pressed while in Edit Mode,
-      changes to the current cell are not saved.
+      the data in a given row and then press the Tab key to move to the next
+      cell in the row or the Enter key to move to the next cell in the column.
+      Tab and Enter both save the data in the cell where the user was. The user
+      can press the Escape key to leave Edit Mode and go back to View Mode. If
+      the Escape Key is pressed while in Edit Mode, changes to the current cell
+      are not saved.
     </p>
     <p>
       When in View Mode, screen reader users can navigate the table using normal
