@@ -87,7 +87,13 @@ export const EditableTableCell = ({
       />
     </td>
   ) : (
-    <td tabIndex={0} onKeyPress={enterEditMode} ref={tableCellRef}>
+    <td
+      tabIndex={0}
+      onKeyPress={enterEditMode}
+      ref={tableCellRef}
+      role="button"
+      aria-label={`Edit - ${tableCellData}`}
+    >
       {tableCellData}
     </td>
   );
