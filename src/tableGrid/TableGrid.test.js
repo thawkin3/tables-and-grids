@@ -40,5 +40,8 @@ describe('TableGrid', () => {
     expect(container.querySelectorAll('td').length).toBe(
       numberOfTableBodyCells
     );
+
+    expect(screen.getAllByRole('checkbox').length).toBe(numberOfRows);
+    expect(screen.getAllByRole('link').length).toBe(numberOfRows);
   });
 });
