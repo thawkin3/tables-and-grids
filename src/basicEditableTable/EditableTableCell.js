@@ -33,11 +33,15 @@ export const EditableTableCell = ({
     }
   }, [needToSetFocusToTableCellInput]);
 
-  const enterEditMode = e => {
+  const handleTableCellKeyDown = e => {
     if (e.key === 'Enter') {
-      setCurrentEditingRow(rowIndex);
-      setNeedToSetFocusToTableCellInput(true);
+      enterEditMode();
     }
+  };
+
+  const enterEditMode = e => {
+    setCurrentEditingRow(rowIndex);
+    setNeedToSetFocusToTableCellInput(true);
   };
 
   const handleTableCellInputKeyDown = e => {
@@ -89,7 +93,8 @@ export const EditableTableCell = ({
   ) : (
     <td
       tabIndex={0}
-      onKeyPress={enterEditMode}
+      onKeyPress={handleTableCellKeyDown}
+      onDoubleClick={enterEditMode}
       ref={tableCellRef}
       role="button"
       aria-label={`Edit - ${tableCellData}`}

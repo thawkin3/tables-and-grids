@@ -14,10 +14,6 @@ export const _BasicEditableTable = () => (
     </p>
     <ul>
       <li>
-        When in View Mode, double clicking on any cell should cause you to enter
-        Edit Mode
-      </li>
-      <li>
         When in Edit Mode, clicking away should cause you to exit Edit Mode
       </li>
       <li>
