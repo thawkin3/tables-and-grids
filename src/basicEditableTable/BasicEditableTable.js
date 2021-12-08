@@ -26,7 +26,6 @@ export const BasicEditableTable = ({ tableData }) => {
                 tableCellData={tableCellData}
                 rowIndex={rowIndex}
                 headerKey={Object.keys(tableRow)[columnIndex]}
-                columnIndex={columnIndex}
                 currentEditingRow={currentEditingRow}
                 setCurrentEditingRow={setCurrentEditingRow}
                 currentTableData={currentTableData}

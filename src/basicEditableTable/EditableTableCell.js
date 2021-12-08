@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './EditableTableCell.css';
 
 export const EditableTableCell = ({
   rowIndex,
   headerKey,
-  columnIndex,
   currentEditingRow,
   setCurrentEditingRow,
   currentTableData,
@@ -83,6 +83,7 @@ export const EditableTableCell = ({
         onKeyDown={handleTableCellInputKeyDown}
         onChange={handleTableCellInputChange}
         ref={tableCellInputRef}
+        className="textInput"
       />
     </td>
   ) : (
