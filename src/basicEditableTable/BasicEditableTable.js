@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { EditableTableCell } from './EditableTableCell';
 import '../Table.css';
 
@@ -8,8 +8,28 @@ export const BasicEditableTable = ({ tableData }) => {
   const [currentTableData, setCurrentTableData] = useState(tableData);
   const [currentEditingRow, setCurrentEditingRow] = useState(null);
 
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = e => {
+      const isClickOutsideTable =
+        tableRef.current && !tableRef.current.contains(e.target);
+      const isInEditMode = currentEditingRow !== null;
+
+      if (isClickOutsideTable && isInEditMode) {
+        setCurrentEditingRow(null);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [currentEditingRow]);
+
   return (
-    <table aria-label="Basic editable table">
+    <table aria-label="Basic editable table" ref={tableRef}>
       <thead>
         <tr>
           {tableHeaders.map(tableHeader => (

@@ -14,9 +14,6 @@ export const _BasicEditableTable = () => (
     </p>
     <ul>
       <li>
-        When in Edit Mode, clicking away should cause you to exit Edit Mode
-      </li>
-      <li>
         When in Edit Mode, pressing Tab should navigate from the end of one row
         to the beginning of the next row
       </li>
