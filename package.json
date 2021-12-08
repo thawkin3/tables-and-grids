@@ -10,7 +10,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,md}\"",
     "format-watch": "onchange \"src/**/*.{js,jsx,md}\" -- prettier --write {{changed}}",
     "start": "start-storybook -p 6006 -s public",
-    "test": "react-scripts test"
+    "test": "react-scripts test --watchAll=false --coverage --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\", \"!src/**/*.stories.{js,jsx,ts,tsx}\", \"!src/fixtures/**\"]'",
+    "test-watch": "react-scripts test --coverage --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\", \"!src/**/*.stories.{js,jsx,ts,tsx}\", \"!src/fixtures/**\"]'"
   },
   "eslintConfig": {
     "extends": [
