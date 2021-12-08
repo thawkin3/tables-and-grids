@@ -36,5 +36,17 @@ describe('BasicTable', () => {
     expect(container.querySelectorAll('td').length).toBe(
       numberOfTableBodyCells
     );
+
+    basicPokemonData.forEach((tableRow, rowIndex) => {
+      const tableRowInDOM = container.querySelectorAll('tbody tr')[rowIndex];
+      const tableRowCells = Object.values(tableRow);
+
+      tableRowCells.forEach((tableCellData, columnIndex) => {
+        const tableCellInDOM =
+          tableRowInDOM.querySelectorAll('td')[columnIndex];
+
+        expect(tableCellInDOM.textContent).toBe(String(tableCellData));
+      });
+    });
   });
 });
