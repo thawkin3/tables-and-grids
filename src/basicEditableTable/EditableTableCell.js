@@ -103,7 +103,7 @@ export const EditableTableCell = ({
           setCurrentEditingRow(previousRow >= 0 ? previousRow : null);
         } else {
           const nextRow = rowIndex + 1;
-          setCurrentEditingRow(nextRow <= numberOfRows ? nextRow : null);
+          setCurrentEditingRow(nextRow <= numberOfRows - 1 ? nextRow : null);
         }
         break;
       case 'Escape':
@@ -123,7 +123,8 @@ export const EditableTableCell = ({
   const isCellTopLeftInTable = () => rowIndex === 0 && columnIndex === 0;
 
   const updateCellData = () => {
-    const updatedTableData = [...currentTableData];
+    let updatedTableData = [...currentTableData];
+    updatedTableData = updatedTableData.map(tableRow => ({ ...tableRow }));
     updatedTableData[rowIndex][headerKey] = tableCellInputValue;
     setCurrentTableData(updatedTableData);
   };
