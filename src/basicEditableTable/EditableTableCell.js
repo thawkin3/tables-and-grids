@@ -60,61 +60,83 @@ export const EditableTableCell = ({
   };
 
   const handleTableCellInputKeyDown = e => {
+    e.persist();
     const key = e.key;
 
     switch (key) {
       case 'Tab':
-        updateCellData();
-
-        const focusHasLeftTable =
-          (isCellBottomRightInTable() && !e.shiftKey) ||
-          (isCellTopLeftInTable() && e.shiftKey);
-
-        if (focusHasLeftTable) {
-          leaveEditMode();
-        } else {
-          e.preventDefault();
-          if (e.shiftKey) {
-            const previousColumn = columnIndex - 1;
-            if (previousColumn >= 0) {
-              setCurrentEditingColumn(previousColumn);
-            } else {
-              setCurrentEditingColumn(numberOfColumns - 1);
-              setCurrentEditingRow(currentEditingRow - 1);
-            }
-          } else {
-            const nextColumn = columnIndex + 1;
-
-            if (nextColumn <= numberOfColumns - 1) {
-              setCurrentEditingColumn(nextColumn);
-            } else {
-              setCurrentEditingColumn(0);
-              setCurrentEditingRow(currentEditingRow + 1);
-            }
-          }
-        }
-
+        handleTabOnInputKeyPress(e);
         break;
       case 'Enter':
-        updateCellData();
-
-        if (e.shiftKey) {
-          const previousRow = rowIndex - 1;
-          setCurrentEditingRow(previousRow >= 0 ? previousRow : null);
-        } else {
-          const nextRow = rowIndex + 1;
-          setCurrentEditingRow(nextRow <= numberOfRows - 1 ? nextRow : null);
-        }
+        handleEnterOnInputKeyPress(e);
         break;
       case 'Escape':
       case 'Esc':
-        discardCellDataChanges();
-        leaveEditMode();
-        setNeedToSetFocusToTableCell(true);
+        handleEscapeOnInputKeyPress();
         break;
       default:
       // do nothing
     }
+  };
+
+  const handleTabOnInputKeyPress = e => {
+    updateCellData();
+
+    const focusHasLeftTable =
+      (isCellBottomRightInTable() && !e.shiftKey) ||
+      (isCellTopLeftInTable() && e.shiftKey);
+
+    if (focusHasLeftTable) {
+      leaveEditMode();
+    } else {
+      e.preventDefault();
+
+      if (e.shiftKey) {
+        handleMovingFocusWithShiftTab();
+      } else {
+        handleMovingFocusWithTab();
+      }
+    }
+  };
+
+  const handleMovingFocusWithShiftTab = () => {
+    const previousColumn = columnIndex - 1;
+
+    if (previousColumn >= 0) {
+      setCurrentEditingColumn(previousColumn);
+    } else {
+      setCurrentEditingColumn(numberOfColumns - 1);
+      setCurrentEditingRow(currentEditingRow - 1);
+    }
+  };
+
+  const handleMovingFocusWithTab = () => {
+    const nextColumn = columnIndex + 1;
+
+    if (nextColumn <= numberOfColumns - 1) {
+      setCurrentEditingColumn(nextColumn);
+    } else {
+      setCurrentEditingColumn(0);
+      setCurrentEditingRow(currentEditingRow + 1);
+    }
+  };
+
+  const handleEnterOnInputKeyPress = e => {
+    updateCellData();
+
+    if (e.shiftKey) {
+      const previousRow = rowIndex - 1;
+      setCurrentEditingRow(previousRow >= 0 ? previousRow : null);
+    } else {
+      const nextRow = rowIndex + 1;
+      setCurrentEditingRow(nextRow <= numberOfRows - 1 ? nextRow : null);
+    }
+  };
+
+  const handleEscapeOnInputKeyPress = () => {
+    discardCellDataChanges();
+    leaveEditMode();
+    setNeedToSetFocusToTableCell(true);
   };
 
   const isCellBottomRightInTable = () =>
