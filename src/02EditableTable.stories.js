@@ -13,10 +13,6 @@ export const _BasicEditableTable = () => (
       <b>WORK IN PROGRESS. TODO:</b>
     </p>
     <ul>
-      <li>
-        Make sure the focus is managed properly when changing between View Mode
-        and Edit Mode, and vice versa
-      </li>
       <li>Add appropriate aria-labels and instructions for screen readers</li>
     </ul>
     <p>
