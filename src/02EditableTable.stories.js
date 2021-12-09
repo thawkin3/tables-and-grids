@@ -95,7 +95,11 @@ export const _EditableTableWithWidgetTypes = () => (
         Should the tab stops only have one per cell? Right now the checkbox cell
         and the link cell have two tab stops, one for the cell and one for the
         checkbox/link, but there should probably be just the one tab stop on the
-        checkbox/link and not the cell.
+        checkbox/link and not the cell. Or... maybe that would only be true when
+        the table functions as a grid? Because if I want to visit one of the
+        links, for example, then I would need to be able to tab to it when in
+        View Mode, and we would need to differentiate a way between pressing a
+        key to visit the link vs. pressing a key to enter Edit Mode.
       </li>
       <li>
         When in Edit Mode, the checkbox widget should not change. Right now it
@@ -108,6 +112,33 @@ export const _EditableTableWithWidgetTypes = () => (
         probably a bug in the Basic Editable Table too.
       </li>
     </ul>
+    <p>
+      This is a table capable of rendering various widget types in the table
+      cells. This table features checkboxes, text, and links. The checkbox and
+      link elements are naturally tabbable, focusable, and interactive.
+    </p>
+    <p>
+      The columns are not sortable, reorderable, or resizable. The table data is
+      not filterable.
+    </p>
+    <p>
+      Because the table is editable, when it's in View Mode, each one of the
+      cells is tabbable, focusable, and interactive.
+    </p>
+    <p>
+      Mouse users can click to check and uncheck the checkboxes. Mouse users can
+      click on the links to visit them.
+    </p>
+    <p>
+      Keyboard users can tab to the checkboxes and links and interact with them
+      through normal keyboard commands (Space to check/uncheck the checkboxes
+      and Enter to visit a link).
+    </p>
+    <p>
+      Screen reader users can navigate using normal table navigation commands
+      and can also interact with the checkboxes and links using normal screen
+      reader commands.
+    </p>
     <EditableTableWithWidgetTypes tableData={pokemonDataWithWidgetTypes} />
   </>
 );
