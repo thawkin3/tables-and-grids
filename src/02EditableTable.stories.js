@@ -1,6 +1,8 @@
 import React from 'react';
 import { basicPokemonData } from './fixtures/basicPokemonData';
+import { pokemonDataWithWidgetTypes } from './fixtures/pokemonDataWithWidgetTypes';
 import { BasicEditableTable } from './basicEditableTable/BasicEditableTable';
+import { EditableTableWithWidgetTypes } from './editableTableWithWidgetTypes/EditableTableWithWidgetTypes';
 
 export default {
   title: 'Editable Tables',
@@ -91,6 +93,7 @@ export const _EditableTableWithWidgetTypes = () => (
     <ul>
       <li>Create example</li>
     </ul>
+    <EditableTableWithWidgetTypes tableData={pokemonDataWithWidgetTypes} />
   </>
 );
 
