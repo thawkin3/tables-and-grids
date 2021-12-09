@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BasicEditableTable } from './BasicEditableTable';
 import { basicPokemonData } from '../fixtures/basicPokemonData';
@@ -149,8 +149,12 @@ describe('BasicEditableTable', () => {
       userEvent.tab();
       expect(firstCellInTable).toHaveFocus();
 
-      userEvent.type(firstCellInTable, '{esc}');
-      userEvent.type(firstCellInTable, 'abc');
+      fireEvent.keyPress(firstCellInTable, {
+        key: 'a',
+        code: 'KeyA',
+        keyCode: 97,
+        charCode: 97,
+      });
 
       expect(screen.queryAllByRole('textbox').length).toBe(0);
     });

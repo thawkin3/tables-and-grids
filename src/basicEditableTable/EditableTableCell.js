@@ -47,7 +47,7 @@ export const EditableTableCell = ({
     }
   }, [currentEditingRow, currentEditingColumn, rowIndex, columnIndex]);
 
-  const handleTableCellKeyDown = e => {
+  const handleTableCellKeyPress = e => {
     if (e.key === 'Enter') {
       enterEditMode();
     }
@@ -157,7 +157,7 @@ export const EditableTableCell = ({
     <td className="tableCellThatContainsViewModeButton">
       <button
         className="tableCellViewModeButton"
-        onKeyPress={handleTableCellKeyDown}
+        onKeyPress={handleTableCellKeyPress}
         onDoubleClick={enterEditMode}
         ref={tableCellRef}
         aria-label={`${tableCellData} - Press Enter to edit`}
