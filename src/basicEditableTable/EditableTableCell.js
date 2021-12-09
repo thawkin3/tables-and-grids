@@ -152,15 +152,16 @@ export const EditableTableCell = ({
       />
     </td>
   ) : (
-    <td
-      tabIndex={0}
-      onKeyPress={handleTableCellKeyDown}
-      onDoubleClick={enterEditMode}
-      ref={tableCellRef}
-      role="button"
-      aria-label={`Edit - ${tableCellData}`}
-    >
-      {tableCellData}
+    <td className="tableCellThatContainsViewModeButton">
+      <button
+        className="tableCellViewModeButton"
+        onKeyPress={handleTableCellKeyDown}
+        onDoubleClick={enterEditMode}
+        ref={tableCellRef}
+        aria-label={`${tableCellData} - Press Enter to edit`}
+      >
+        {tableCellData}
+      </button>
     </td>
   );
 };

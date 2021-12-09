@@ -37,7 +37,9 @@ export const BasicEditableTable = ({ tableData }) => {
       <thead>
         <tr>
           {tableHeaders.map(tableHeader => (
-            <th key={tableHeader}>{tableHeader}</th>
+            <th key={tableHeader} scope="col">
+              {tableHeader}
+            </th>
           ))}
         </tr>
       </thead>
