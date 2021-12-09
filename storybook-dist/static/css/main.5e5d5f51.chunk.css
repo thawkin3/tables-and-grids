@@ -6,14 +6,14 @@ table {
 
 table td,
 table th {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 0.0625rem solid #ddd;
+  padding: 0.5rem;
 }
 
 table th {
   text-transform: capitalize;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   text-align: left;
   background-color: #04AA6D;
   color: white;
@@ -46,5 +46,19 @@ table tr:hover {
   padding: 0.5rem 0.5rem 0.3125rem 0.5rem;
 }
 
+.tableCellThatContainsViewModeButton {
+  padding: 0;
+}
 
-/*# sourceMappingURL=main.9a8f6b56.chunk.css.map*/
+.tableCellViewModeButton {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: left;
+}
+
+
+/*# sourceMappingURL=main.5e5d5f51.chunk.css.map*/
