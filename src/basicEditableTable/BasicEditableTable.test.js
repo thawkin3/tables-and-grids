@@ -137,6 +137,24 @@ describe('BasicEditableTable', () => {
       );
     });
 
+    it('does not enter Edit Mode on keypresses for any key other than Enter', () => {
+      render(<BasicEditableTable tableData={basicPokemonData} />);
+
+      expect(document.body).toHaveFocus();
+
+      const firstCellInTable = screen.getByRole('button', {
+        name: '1 - Press Enter to edit',
+      });
+
+      userEvent.tab();
+      expect(firstCellInTable).toHaveFocus();
+
+      userEvent.type(firstCellInTable, '{esc}');
+      userEvent.type(firstCellInTable, 'abc');
+
+      expect(screen.queryAllByRole('textbox').length).toBe(0);
+    });
+
     it("allows the user to double click on any cell to enter Edit Mode for that cell's row", () => {
       render(<BasicEditableTable tableData={basicPokemonData} />);
 
@@ -565,6 +583,82 @@ describe('BasicEditableTable', () => {
           userEvent.click(document.body);
 
           expect(document.body).toHaveFocus();
+          expect(screen.queryAllByRole('textbox').length).toBe(0);
+        });
+      });
+
+      describe('Making changes to the data', () => {
+        it("saves changes to a cell's data when the user presses the Tab key", () => {
+          render(<BasicEditableTable tableData={basicPokemonData} />);
+          enterEditMode();
+
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
+
+          userEvent.type(firstTextInputInFirstRow, '23');
+          expect(firstTextInputInFirstRow).toHaveValue('123');
+
+          userEvent.tab();
+          expect(firstTextInputInFirstRow).toHaveValue('123');
+
+          const secondTextInputInFirstRow =
+            screen.getByDisplayValue('Bulbasaur');
+          userEvent.type(secondTextInputInFirstRow, '{enter}');
+
+          const firstCellInTable = screen.getByRole('button', {
+            name: '123 - Press Enter to edit',
+          });
+          expect(firstCellInTable).toBeInTheDocument();
+
+          userEvent.click(document.body);
+
+          expect(document.body).toHaveFocus();
+          expect(screen.queryAllByRole('textbox').length).toBe(0);
+          expect(firstCellInTable).toBeInTheDocument();
+        });
+
+        it("saves changes to a cell's data when the user presses the Enter key", () => {
+          render(<BasicEditableTable tableData={basicPokemonData} />);
+          enterEditMode();
+
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
+
+          userEvent.type(firstTextInputInFirstRow, '23');
+          expect(firstTextInputInFirstRow).toHaveValue('123');
+
+          userEvent.type(firstTextInputInFirstRow, '{enter}');
+
+          const firstCellInTable = screen.getByRole('button', {
+            name: '123 - Press Enter to edit',
+          });
+          expect(firstCellInTable).toBeInTheDocument();
+
+          userEvent.click(document.body);
+
+          expect(document.body).toHaveFocus();
+          expect(screen.queryAllByRole('textbox').length).toBe(0);
+          expect(firstCellInTable).toBeInTheDocument();
+        });
+
+        it("does not save changes to a cell's data when the user presses the Escape key", () => {
+          render(<BasicEditableTable tableData={basicPokemonData} />);
+          enterEditMode();
+
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
+
+          userEvent.type(firstTextInputInFirstRow, '23 throwaway change');
+          expect(firstTextInputInFirstRow).toHaveValue('123 throwaway change');
+
+          userEvent.type(firstTextInputInFirstRow, '{escape}');
+
+          const firstCellInTable = screen.getByRole('button', {
+            name: '1 - Press Enter to edit',
+          });
+
+          expect(firstCellInTable).toBeInTheDocument();
+          expect(firstCellInTable).toHaveFocus();
           expect(screen.queryAllByRole('textbox').length).toBe(0);
         });
       });
