@@ -3,6 +3,9 @@ import './EditableTableCell.css';
 
 export const EditableTableCell = ({
   rowIndex,
+  columnIndex,
+  numberOfRows,
+  numberOfColumns,
   headerKey,
   currentEditingRow,
   setCurrentEditingRow,
@@ -50,8 +53,13 @@ export const EditableTableCell = ({
     switch (key) {
       case 'Tab':
         updateCellData();
-        // TODO: Exit Edit Mode if Tab is pressed on last cell in last row
-        // TODO: Exit Edit Mode if Shift+Tab is pressed on first cell in first row
+
+        const focusHasLeftTable =
+          isCellBottomRightInTable() || (isCellTopLeftInTable() && e.shiftKey);
+
+        if (focusHasLeftTable) {
+          leaveEditMode();
+        }
         break;
       case 'Enter':
         updateCellData();
@@ -62,11 +70,17 @@ export const EditableTableCell = ({
       case 'Esc':
         discardCellDataChanges();
         leaveEditMode();
+        setNeedToSetFocusToTableCell(true);
         break;
       default:
       // do nothing
     }
   };
+
+  const isCellBottomRightInTable = () =>
+    rowIndex === numberOfRows - 1 && columnIndex === numberOfColumns - 1;
+
+  const isCellTopLeftInTable = () => rowIndex === 0 && columnIndex === 0;
 
   const updateCellData = () => {
     const updatedTableData = [...currentTableData];
@@ -80,7 +94,6 @@ export const EditableTableCell = ({
 
   const leaveEditMode = () => {
     setCurrentEditingRow(null);
-    setNeedToSetFocusToTableCell(true);
   };
 
   const handleTableCellInputChange = e => {

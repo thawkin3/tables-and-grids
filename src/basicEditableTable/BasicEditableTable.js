@@ -4,6 +4,8 @@ import '../Table.css';
 
 export const BasicEditableTable = ({ tableData }) => {
   const tableHeaders = Object.keys(tableData[0]);
+  const numberOfColumns = tableHeaders.length;
+  const numberOfRows = tableData.length;
 
   const [currentTableData, setCurrentTableData] = useState(tableData);
   const [currentEditingRow, setCurrentEditingRow] = useState(null);
@@ -45,6 +47,9 @@ export const BasicEditableTable = ({ tableData }) => {
                 key={`${rowIndex}-${tableCellData}`}
                 tableCellData={tableCellData}
                 rowIndex={rowIndex}
+                columnIndex={columnIndex}
+                numberOfRows={numberOfRows}
+                numberOfColumns={numberOfColumns}
                 headerKey={Object.keys(tableRow)[columnIndex]}
                 currentEditingRow={currentEditingRow}
                 setCurrentEditingRow={setCurrentEditingRow}
