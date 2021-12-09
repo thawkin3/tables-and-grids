@@ -48,7 +48,7 @@ export const BasicEditableTable = ({ tableData }) => {
           <tr key={tableRow.id}>
             {Object.values(tableRow).map((tableCellData, columnIndex) => (
               <EditableTableCell
-                key={`${rowIndex}-${tableCellData}`}
+                key={`${columnIndex}-${rowIndex}-${tableCellData}`}
                 tableCellData={tableCellData}
                 rowIndex={rowIndex}
                 columnIndex={columnIndex}
