@@ -67,7 +67,8 @@ export const EditableTableCell = ({
         updateCellData();
 
         const focusHasLeftTable =
-          isCellBottomRightInTable() || (isCellTopLeftInTable() && e.shiftKey);
+          (isCellBottomRightInTable() && !e.shiftKey) ||
+          (isCellTopLeftInTable() && e.shiftKey);
 
         if (focusHasLeftTable) {
           leaveEditMode();
