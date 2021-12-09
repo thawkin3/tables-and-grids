@@ -14,17 +14,6 @@ export const _BasicEditableTable = () => (
     </p>
     <ul>
       <li>
-        When in Edit Mode, pressing Tab from the end of one row should navigate
-        to the beginning of the next row (and pressing Shift+Tab from the
-        beginning of one row should navigate to the end of the previous row)
-      </li>
-      <li>
-        When in Edit Mode, pressing Enter from a cell in any given row should
-        navigate to the cell in the same column of the next row (and pressing
-        Shift+Enter from a cell in any given row should navigate to the cell in
-        the same column of the previous row)
-      </li>
-      <li>
         Make sure the focus is managed properly when changing between View Mode
         and Edit Mode, and vice versa
       </li>

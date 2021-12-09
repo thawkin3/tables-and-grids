@@ -9,6 +9,7 @@ export const BasicEditableTable = ({ tableData }) => {
 
   const [currentTableData, setCurrentTableData] = useState(tableData);
   const [currentEditingRow, setCurrentEditingRow] = useState(null);
+  const [currentEditingColumn, setCurrentEditingColumn] = useState(null);
 
   const tableRef = useRef(null);
 
@@ -20,6 +21,7 @@ export const BasicEditableTable = ({ tableData }) => {
 
       if (isClickOutsideTable && isInEditMode) {
         setCurrentEditingRow(null);
+        setCurrentEditingColumn(null);
       }
     };
 
@@ -53,6 +55,8 @@ export const BasicEditableTable = ({ tableData }) => {
                 headerKey={Object.keys(tableRow)[columnIndex]}
                 currentEditingRow={currentEditingRow}
                 setCurrentEditingRow={setCurrentEditingRow}
+                currentEditingColumn={currentEditingColumn}
+                setCurrentEditingColumn={setCurrentEditingColumn}
                 currentTableData={currentTableData}
                 setCurrentTableData={setCurrentTableData}
               />

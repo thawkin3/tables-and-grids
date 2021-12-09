@@ -9,6 +9,8 @@ export const EditableTableCell = ({
   headerKey,
   currentEditingRow,
   setCurrentEditingRow,
+  currentEditingColumn,
+  setCurrentEditingColumn,
   currentTableData,
   setCurrentTableData,
   tableCellData,
@@ -36,6 +38,15 @@ export const EditableTableCell = ({
     }
   }, [needToSetFocusToTableCellInput]);
 
+  useEffect(() => {
+    if (
+      currentEditingRow === rowIndex &&
+      currentEditingColumn === columnIndex
+    ) {
+      tableCellInputRef.current?.focus();
+    }
+  }, [currentEditingRow, currentEditingColumn, rowIndex, columnIndex]);
+
   const handleTableCellKeyDown = e => {
     if (e.key === 'Enter') {
       enterEditMode();
@@ -44,6 +55,7 @@ export const EditableTableCell = ({
 
   const enterEditMode = e => {
     setCurrentEditingRow(rowIndex);
+    setCurrentEditingColumn(columnIndex);
     setNeedToSetFocusToTableCellInput(true);
   };
 
@@ -59,12 +71,39 @@ export const EditableTableCell = ({
 
         if (focusHasLeftTable) {
           leaveEditMode();
+        } else {
+          e.preventDefault();
+          if (e.shiftKey) {
+            const previousColumn = columnIndex - 1;
+            if (previousColumn >= 0) {
+              setCurrentEditingColumn(previousColumn);
+            } else {
+              setCurrentEditingColumn(numberOfColumns - 1);
+              setCurrentEditingRow(currentEditingRow - 1);
+            }
+          } else {
+            const nextColumn = columnIndex + 1;
+
+            if (nextColumn <= numberOfColumns - 1) {
+              setCurrentEditingColumn(nextColumn);
+            } else {
+              setCurrentEditingColumn(0);
+              setCurrentEditingRow(currentEditingRow + 1);
+            }
+          }
         }
+
         break;
       case 'Enter':
         updateCellData();
-        // TODO: Send focus to the next cell in the column
-        // setCurrentEditingRow(rowIndex + 1);
+
+        if (e.shiftKey) {
+          const previousRow = rowIndex - 1;
+          setCurrentEditingRow(previousRow >= 0 ? previousRow : null);
+        } else {
+          const nextRow = rowIndex + 1;
+          setCurrentEditingRow(nextRow <= numberOfRows ? nextRow : null);
+        }
         break;
       case 'Escape':
       case 'Esc':
@@ -94,20 +133,11 @@ export const EditableTableCell = ({
 
   const leaveEditMode = () => {
     setCurrentEditingRow(null);
+    setCurrentEditingColumn(null);
   };
 
   const handleTableCellInputChange = e => {
     setTableCellInputValue(e.target.value);
-  };
-
-  const handleTableCellFocus = e => {
-    const wasPreviouslyEditingRowDirectlyAboveOrBelow =
-      currentEditingRow !== null &&
-      Math.abs(currentEditingRow - rowIndex) === 1;
-    if (wasPreviouslyEditingRowDirectlyAboveOrBelow) {
-      setCurrentEditingRow(rowIndex);
-      setNeedToSetFocusToTableCellInput(true);
-    }
   };
 
   return currentEditingRow === rowIndex ? (
@@ -126,7 +156,6 @@ export const EditableTableCell = ({
       tabIndex={0}
       onKeyPress={handleTableCellKeyDown}
       onDoubleClick={enterEditMode}
-      onFocus={handleTableCellFocus}
       ref={tableCellRef}
       role="button"
       aria-label={`Edit - ${tableCellData}`}
