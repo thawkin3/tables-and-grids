@@ -50,10 +50,13 @@ export const EditableTableCell = ({
     switch (key) {
       case 'Tab':
         updateCellData();
+        // TODO: Exit Edit Mode if Tab is pressed on last cell in last row
+        // TODO: Exit Edit Mode if Shift+Tab is pressed on first cell in first row
         break;
       case 'Enter':
         updateCellData();
-        leaveEditMode();
+        // TODO: Send focus to the next cell in the column
+        // setCurrentEditingRow(rowIndex + 1);
         break;
       case 'Escape':
       case 'Esc':
@@ -84,6 +87,16 @@ export const EditableTableCell = ({
     setTableCellInputValue(e.target.value);
   };
 
+  const handleTableCellFocus = e => {
+    const wasPreviouslyEditingRowDirectlyAboveOrBelow =
+      currentEditingRow !== null &&
+      Math.abs(currentEditingRow - rowIndex) === 1;
+    if (wasPreviouslyEditingRowDirectlyAboveOrBelow) {
+      setCurrentEditingRow(rowIndex);
+      setNeedToSetFocusToTableCellInput(true);
+    }
+  };
+
   return currentEditingRow === rowIndex ? (
     <td>
       <input
@@ -100,6 +113,7 @@ export const EditableTableCell = ({
       tabIndex={0}
       onKeyPress={handleTableCellKeyDown}
       onDoubleClick={enterEditMode}
+      onFocus={handleTableCellFocus}
       ref={tableCellRef}
       role="button"
       aria-label={`Edit - ${tableCellData}`}
