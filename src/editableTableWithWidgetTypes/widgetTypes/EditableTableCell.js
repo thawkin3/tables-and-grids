@@ -55,7 +55,19 @@ export const EditableTableCell = ({
   const getTableCellWidget = widgetType => {
     switch (widgetType) {
       case 'checkbox':
-        return <TableCellCheckbox tableCellData={tableCellData} />;
+        const checkboxProps =
+          currentEditingRow === rowIndex
+            ? {
+                onKeyDown: handleTableCellInputKeyDown,
+              }
+            : null;
+        return (
+          <TableCellCheckbox
+            tableCellData={tableCellData}
+            {...checkboxProps}
+            ref={tableCellInputRef}
+          />
+        );
       case 'link':
         return <TableCellLink tableCellData={tableCellData} />;
       case 'text':
@@ -68,6 +80,12 @@ export const EditableTableCell = ({
     const widgetsWithNoTableCellTabStop = ['checkbox'];
 
     return !widgetsWithNoTableCellTabStop.includes(widgetType);
+  };
+
+  const shouldWidgetChangeWhenInEditMode = widgetType => {
+    const widgetsThatDoNotChangeInEditMode = ['checkbox'];
+
+    return !widgetsThatDoNotChangeInEditMode.includes(widgetType);
   };
 
   const handleTableCellKeyPress = e => {
@@ -192,14 +210,18 @@ export const EditableTableCell = ({
 
   return currentEditingRow === rowIndex ? (
     <td>
-      <input
-        type="text"
-        value={tableCellInputValue}
-        onKeyDown={handleTableCellInputKeyDown}
-        onChange={handleTableCellInputChange}
-        ref={tableCellInputRef}
-        className="textInput"
-      />
+      {shouldWidgetChangeWhenInEditMode(tableCellData.widgetType) ? (
+        <input
+          type="text"
+          value={tableCellInputValue}
+          onKeyDown={handleTableCellInputKeyDown}
+          onChange={handleTableCellInputChange}
+          ref={tableCellInputRef}
+          className="textInput"
+        />
+      ) : (
+        getTableCellWidget(tableCellData.widgetType)
+      )}
     </td>
   ) : shouldTableCellHaveTabStopBasedOnWidget(tableCellData.widgetType) ? (
     <td className="tableCellThatContainsViewModeButton">
@@ -214,6 +236,8 @@ export const EditableTableCell = ({
       </button>
     </td>
   ) : (
-    <td>{getTableCellWidget(tableCellData.widgetType)}</td>
+    <td onKeyDown={handleTableCellKeyPress}>
+      {getTableCellWidget(tableCellData.widgetType)}
+    </td>
   );
 };

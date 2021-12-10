@@ -151,13 +151,17 @@ describe('EditableTableWithWidgetTypes', () => {
       const numberOfTableBodyCellButtons =
         numberOfTableBodyCells - numberOfCheckboxes;
 
-      // The current row's cells should be in Edit Mode as text inputs,
-      // and the rest of the rows' cells should still be in View Mode as buttons
+      // The current row's cells should be in Edit Mode as text inputs (except for the checkbox cell),
+      // and the rest of the rows' cells should still be in View Mode as buttons (except for the checkbox cells)
+      const numberOfTextInputsInEditMode = numberOfColumns - 1;
+      const numberOfRemainingTableBodyCellButtonsWhenInEditMode =
+        numberOfTableBodyCellButtons - numberOfTextInputsInEditMode;
 
-      // TODO: Once the checkbox doesn't change to an input when in Edit Mode, this number will be 4 instead of 5
-      expect(screen.getAllByRole('textbox').length).toBe(numberOfColumns);
+      expect(screen.getAllByRole('textbox').length).toBe(
+        numberOfTextInputsInEditMode
+      );
       expect(screen.getAllByRole('button').length).toBe(
-        numberOfTableBodyCellButtons - (numberOfColumns - 1)
+        numberOfRemainingTableBodyCellButtonsWhenInEditMode
       );
     });
 
@@ -211,13 +215,17 @@ describe('EditableTableWithWidgetTypes', () => {
       const numberOfTableBodyCellButtons =
         numberOfTableBodyCells - numberOfCheckboxes;
 
-      // The current row's cells should be in Edit Mode as text inputs,
-      // and the rest of the rows' cells should still be in View Mode as buttons
+      // The current row's cells should be in Edit Mode as text inputs (except for the checkbox cell),
+      // and the rest of the rows' cells should still be in View Mode as buttons (except for the checkbox cells)
+      const numberOfTextInputsInEditMode = numberOfColumns - 1;
+      const numberOfRemainingTableBodyCellButtonsWhenInEditMode =
+        numberOfTableBodyCellButtons - numberOfTextInputsInEditMode;
 
-      // TODO: Once the checkbox doesn't change to an input when in Edit Mode, this number will be 4 instead of 5
-      expect(screen.getAllByRole('textbox').length).toBe(numberOfColumns);
+      expect(screen.getAllByRole('textbox').length).toBe(
+        numberOfTextInputsInEditMode
+      );
       expect(screen.getAllByRole('button').length).toBe(
-        numberOfTableBodyCellButtons - (numberOfColumns - 1)
+        numberOfRemainingTableBodyCellButtonsWhenInEditMode
       );
     });
   });
@@ -294,10 +302,9 @@ describe('EditableTableWithWidgetTypes', () => {
 
           userEvent.tab();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
+          const checkboxInputInSecondRow = screen.getByRole('checkbox', {
+            name: 'Select Row - Ivysaur',
+          });
           expect(checkboxInputInSecondRow).toHaveFocus();
         });
 
@@ -332,10 +339,9 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
+          const checkboxInputInFirstRow = screen.getByRole('checkbox', {
+            name: 'Select Row - Bulbasaur',
+          });
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           const secondTextInputInFirstRow =
             screen.getByDisplayValue('Bulbasaur');
@@ -399,10 +405,9 @@ describe('EditableTableWithWidgetTypes', () => {
 
           userEvent.tab();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
+          const checkboxInputInSecondRow = screen.getByRole('checkbox', {
+            name: 'Select Row - Ivysaur',
+          });
           expect(checkboxInputInSecondRow).toHaveFocus();
 
           userEvent.tab({ shift: true });
@@ -423,10 +428,9 @@ describe('EditableTableWithWidgetTypes', () => {
 
           userEvent.tab({ shift: true });
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
+          const checkboxInputInFirstRow = screen.getByRole('checkbox', {
+            name: 'Select Row - Bulbasaur',
+          });
 
           expect(checkboxInputInFirstRow).toHaveFocus();
 
