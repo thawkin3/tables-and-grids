@@ -32,8 +32,19 @@ export const BasicEditableTable = ({ tableData }) => {
     };
   }, [currentEditingRow]);
 
+  const handleTableKeydown = e => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      setCurrentEditingRow(null);
+      setCurrentEditingColumn(null);
+    }
+  };
+
   return (
-    <table aria-label="Basic editable table" ref={tableRef}>
+    <table
+      aria-label="Basic editable table"
+      ref={tableRef}
+      onKeyDown={handleTableKeydown}
+    >
       <thead>
         <tr>
           {tableHeaders.map(tableHeader => (

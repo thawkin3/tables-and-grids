@@ -32,10 +32,18 @@ export const EditableTableWithWidgetTypes = ({ tableData }) => {
     };
   }, [currentEditingRow]);
 
+  const handleTableKeydown = e => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      setCurrentEditingRow(null);
+      setCurrentEditingColumn(null);
+    }
+  };
+
   return (
     <table
       aria-label="Editable table with various widget types like checkboxes, text, and links"
       ref={tableRef}
+      onKeyDown={handleTableKeydown}
     >
       <thead>
         <tr>
