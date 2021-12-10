@@ -64,6 +64,12 @@ export const EditableTableCell = ({
     }
   };
 
+  const shouldTableCellHaveTabStopBasedOnWidget = widgetType => {
+    const widgetsWithNoTableCellTabStop = ['checkbox'];
+
+    return !widgetsWithNoTableCellTabStop.includes(widgetType);
+  };
+
   const handleTableCellKeyPress = e => {
     if (e.key === 'Enter') {
       enterEditMode();
@@ -195,7 +201,7 @@ export const EditableTableCell = ({
         className="textInput"
       />
     </td>
-  ) : (
+  ) : shouldTableCellHaveTabStopBasedOnWidget(tableCellData.widgetType) ? (
     <td className="tableCellThatContainsViewModeButton">
       <button
         className="tableCellViewModeButton"
@@ -207,5 +213,7 @@ export const EditableTableCell = ({
         {getTableCellWidget(tableCellData.widgetType)}
       </button>
     </td>
+  ) : (
+    <td>{getTableCellWidget(tableCellData.widgetType)}</td>
   );
 };

@@ -46,7 +46,7 @@ describe('EditableTableWithWidgetTypes', () => {
   });
 
   describe('View Mode', () => {
-    it('renders each table cell as a button', () => {
+    it('renders each table cell as a button, except for the table cell that contains the checkbox', () => {
       render(
         <EditableTableWithWidgetTypes tableData={pokemonDataWithWidgetTypes} />
       );
@@ -54,9 +54,15 @@ describe('EditableTableWithWidgetTypes', () => {
       const tableHeaders = Object.keys(pokemonDataWithWidgetTypes[0]);
       const numberOfColumns = tableHeaders.length;
       const numberOfRows = pokemonDataWithWidgetTypes.length;
+      const numberOfCheckboxes = numberOfRows;
       const numberOfTableBodyCells = numberOfColumns * numberOfRows;
+      const numberOfTableBodyCellButtons =
+        numberOfTableBodyCells - numberOfCheckboxes;
 
-      expect(screen.getAllByRole('button').length).toBe(numberOfTableBodyCells);
+      expect(screen.getAllByRole('cell').length).toBe(numberOfTableBodyCells);
+      expect(screen.getAllByRole('button').length).toBe(
+        numberOfTableBodyCellButtons
+      );
     });
 
     it('includes an aria-label for each table cell button to instruct screen reader users how to enter Edit Mode', () => {
@@ -75,15 +81,6 @@ describe('EditableTableWithWidgetTypes', () => {
       );
 
       expect(document.body).toHaveFocus();
-
-      // TODO: Should there be a tab stop on both the table cell and the checkbox?
-      // Probably not. The tab stop should just be on the checkbox, not the table cell.
-      userEvent.tab();
-      expect(
-        screen.getByRole('button', {
-          name: 'Select Row - Bulbasaur - Press Enter to edit',
-        })
-      ).toHaveFocus();
 
       userEvent.tab();
       expect(
@@ -117,15 +114,6 @@ describe('EditableTableWithWidgetTypes', () => {
         })[0]
       ).toHaveFocus();
 
-      // TODO: Should there be a tab stop on both the table cell and the checkbox?
-      // Probably not. The tab stop should just be on the checkbox, not the table cell.
-      userEvent.tab();
-      expect(
-        screen.getByRole('button', {
-          name: 'Select Row - Ivysaur - Press Enter to edit',
-        })
-      ).toHaveFocus();
-
       userEvent.tab();
       expect(
         screen.getByRole('checkbox', { name: 'Select Row - Ivysaur' })
@@ -139,27 +127,37 @@ describe('EditableTableWithWidgetTypes', () => {
 
       expect(document.body).toHaveFocus();
 
-      // TODO: Should there be a tab stop on both the table cell and the checkbox?
-      // Probably not. The tab stop should just be on the checkbox, not the table cell.
-      const firstCellInTable = screen.getByRole('button', {
-        name: 'Select Row - Bulbasaur - Press Enter to edit',
+      const firstCheckboxCellInTable = screen.getByRole('checkbox', {
+        name: 'Select Row - Bulbasaur',
       });
 
       userEvent.tab();
-      expect(firstCellInTable).toHaveFocus();
+      expect(firstCheckboxCellInTable).toHaveFocus();
 
-      userEvent.type(firstCellInTable, '{enter}');
+      const firstButtonCellInTable = screen.getByRole('button', {
+        name: '1 - Press Enter to edit',
+      });
+
+      userEvent.tab();
+      expect(firstButtonCellInTable).toHaveFocus();
+
+      userEvent.type(firstButtonCellInTable, '{enter}');
 
       const tableHeaders = Object.keys(pokemonDataWithWidgetTypes[0]);
       const numberOfColumns = tableHeaders.length;
       const numberOfRows = pokemonDataWithWidgetTypes.length;
+      const numberOfCheckboxes = numberOfRows;
       const numberOfTableBodyCells = numberOfColumns * numberOfRows;
+      const numberOfTableBodyCellButtons =
+        numberOfTableBodyCells - numberOfCheckboxes;
 
       // The current row's cells should be in Edit Mode as text inputs,
       // and the rest of the rows' cells should still be in View Mode as buttons
+
+      // TODO: Once the checkbox doesn't change to an input when in Edit Mode, this number will be 4 instead of 5
       expect(screen.getAllByRole('textbox').length).toBe(numberOfColumns);
       expect(screen.getAllByRole('button').length).toBe(
-        numberOfTableBodyCells - numberOfColumns
+        numberOfTableBodyCellButtons - (numberOfColumns - 1)
       );
     });
 
@@ -170,16 +168,21 @@ describe('EditableTableWithWidgetTypes', () => {
 
       expect(document.body).toHaveFocus();
 
-      // TODO: Should there be a tab stop on both the table cell and the checkbox?
-      // Probably not. The tab stop should just be on the checkbox, not the table cell.
-      const firstCellInTable = screen.getByRole('button', {
-        name: 'Select Row - Bulbasaur - Press Enter to edit',
+      const firstCheckboxCellInTable = screen.getByRole('checkbox', {
+        name: 'Select Row - Bulbasaur',
       });
 
       userEvent.tab();
-      expect(firstCellInTable).toHaveFocus();
+      expect(firstCheckboxCellInTable).toHaveFocus();
 
-      fireEvent.keyPress(firstCellInTable, {
+      const firstButtonCellInTable = screen.getByRole('button', {
+        name: '1 - Press Enter to edit',
+      });
+
+      userEvent.tab();
+      expect(firstButtonCellInTable).toHaveFocus();
+
+      fireEvent.keyPress(firstButtonCellInTable, {
         key: 'a',
         code: 'KeyA',
         keyCode: 97,
@@ -203,28 +206,31 @@ describe('EditableTableWithWidgetTypes', () => {
       const tableHeaders = Object.keys(pokemonDataWithWidgetTypes[0]);
       const numberOfColumns = tableHeaders.length;
       const numberOfRows = pokemonDataWithWidgetTypes.length;
+      const numberOfCheckboxes = numberOfRows;
       const numberOfTableBodyCells = numberOfColumns * numberOfRows;
+      const numberOfTableBodyCellButtons =
+        numberOfTableBodyCells - numberOfCheckboxes;
 
       // The current row's cells should be in Edit Mode as text inputs,
       // and the rest of the rows' cells should still be in View Mode as buttons
+
+      // TODO: Once the checkbox doesn't change to an input when in Edit Mode, this number will be 4 instead of 5
       expect(screen.getAllByRole('textbox').length).toBe(numberOfColumns);
       expect(screen.getAllByRole('button').length).toBe(
-        numberOfTableBodyCells - numberOfColumns
+        numberOfTableBodyCellButtons - (numberOfColumns - 1)
       );
     });
   });
 
   describe('Edit Mode', () => {
     const enterEditMode = () => {
-      // TODO: Should there be a tab stop on both the table cell and the checkbox?
-      // Probably not. The tab stop should just be on the checkbox, not the table cell.
-      const firstCellInTable = screen.getByRole('button', {
-        name: 'Select Row - Bulbasaur - Press Enter to edit',
+      const firstButtonCellInTable = screen.getByRole('button', {
+        name: '1 - Press Enter to edit',
       });
 
       userEvent.tab();
-
-      userEvent.type(firstCellInTable, '{enter}');
+      userEvent.tab();
+      userEvent.type(firstButtonCellInTable, '{enter}');
     };
 
     describe('table navigation', () => {
@@ -237,10 +243,6 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           const secondTextInputInFirstRow =
             screen.getByDisplayValue('Bulbasaur');
@@ -250,9 +252,6 @@ describe('EditableTableWithWidgetTypes', () => {
             'One of the three starter Pokémon'
           )[0];
 
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
           expect(firstTextInputInFirstRow).toHaveFocus();
 
           userEvent.tab();
@@ -273,10 +272,6 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           const secondTextInputInFirstRow =
             screen.getByDisplayValue('Bulbasaur');
@@ -286,9 +281,6 @@ describe('EditableTableWithWidgetTypes', () => {
             'One of the three starter Pokémon'
           )[0];
 
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
           expect(firstTextInputInFirstRow).toHaveFocus();
 
           userEvent.tab();
@@ -302,6 +294,7 @@ describe('EditableTableWithWidgetTypes', () => {
 
           userEvent.tab();
 
+          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
           const checkboxInputInSecondRow = screen.getByDisplayValue(
             'Select Row - Ivysaur'
           );
@@ -352,9 +345,6 @@ describe('EditableTableWithWidgetTypes', () => {
             'One of the three starter Pokémon'
           )[0];
 
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
           expect(firstTextInputInFirstRow).toHaveFocus();
 
           userEvent.tab();
@@ -387,10 +377,6 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           const secondTextInputInFirstRow =
             screen.getByDisplayValue('Bulbasaur');
@@ -400,9 +386,6 @@ describe('EditableTableWithWidgetTypes', () => {
             'One of the three starter Pokémon'
           )[0];
 
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
           expect(firstTextInputInFirstRow).toHaveFocus();
 
           userEvent.tab();
@@ -416,6 +399,7 @@ describe('EditableTableWithWidgetTypes', () => {
 
           userEvent.tab();
 
+          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
           const checkboxInputInSecondRow = screen.getByDisplayValue(
             'Select Row - Ivysaur'
           );
@@ -436,6 +420,8 @@ describe('EditableTableWithWidgetTypes', () => {
             />
           );
           enterEditMode();
+
+          userEvent.tab({ shift: true });
 
           // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
           const checkboxInputInFirstRow = screen.getByDisplayValue(
@@ -459,67 +445,48 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFirstRow, '{enter}');
+          userEvent.type(firstTextInputInFirstRow, '{enter}');
 
-          const checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
-          expect(checkboxInputInSecondRow).toHaveFocus();
+          const firstTextInputInSecondRow = screen.getByDisplayValue('2');
+          expect(firstTextInputInSecondRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSecondRow, '{enter}');
+          userEvent.type(firstTextInputInSecondRow, '{enter}');
 
-          const checkboxInputInThirdRow = screen.getByDisplayValue(
-            'Select Row - Venusaur'
-          );
-          expect(checkboxInputInThirdRow).toHaveFocus();
+          const firstTextInputInThirdRow = screen.getByDisplayValue('3');
+          expect(firstTextInputInThirdRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInThirdRow, '{enter}');
+          userEvent.type(firstTextInputInThirdRow, '{enter}');
 
-          const checkboxInputInFourthRow = screen.getByDisplayValue(
-            'Select Row - Charmander'
-          );
-          expect(checkboxInputInFourthRow).toHaveFocus();
+          const firstTextInputInFourthRow = screen.getByDisplayValue('4');
+          expect(firstTextInputInFourthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFourthRow, '{enter}');
+          userEvent.type(firstTextInputInFourthRow, '{enter}');
 
-          const checkboxInputInFifthRow = screen.getByDisplayValue(
-            'Select Row - Charmeleon'
-          );
-          expect(checkboxInputInFifthRow).toHaveFocus();
+          const firstTextInputInFifthRow = screen.getByDisplayValue('5');
+          expect(firstTextInputInFifthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFifthRow, '{enter}');
+          userEvent.type(firstTextInputInFifthRow, '{enter}');
 
-          const checkboxInputInSixthRow = screen.getByDisplayValue(
-            'Select Row - Charizard'
-          );
-          expect(checkboxInputInSixthRow).toHaveFocus();
+          const firstTextInputInSixthRow = screen.getByDisplayValue('6');
+          expect(firstTextInputInSixthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSixthRow, '{enter}');
+          userEvent.type(firstTextInputInSixthRow, '{enter}');
 
-          const checkboxInputInSeventhRow = screen.getByDisplayValue(
-            'Select Row - Squirtle'
-          );
-          expect(checkboxInputInSeventhRow).toHaveFocus();
+          const firstTextInputInSeventhRow = screen.getByDisplayValue('7');
+          expect(firstTextInputInSeventhRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSeventhRow, '{enter}');
+          userEvent.type(firstTextInputInSeventhRow, '{enter}');
 
-          const checkboxInputInEighthRow = screen.getByDisplayValue(
-            'Select Row - Wartortle'
-          );
-          expect(checkboxInputInEighthRow).toHaveFocus();
+          const firstTextInputInEighthRow = screen.getByDisplayValue('8');
+          expect(firstTextInputInEighthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInEighthRow, '{enter}');
+          userEvent.type(firstTextInputInEighthRow, '{enter}');
 
-          const checkboxInputInNinthRow = screen.getByDisplayValue(
-            'Select Row - Blastoise'
-          );
-          expect(checkboxInputInNinthRow).toHaveFocus();
+          const firstTextInputInNinthRow = screen.getByDisplayValue('9');
+          expect(firstTextInputInNinthRow).toHaveFocus();
         });
 
         it('leaves Edit Mode when the user presses Enter on any cell in the last row', () => {
@@ -530,69 +497,50 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFirstRow, '{enter}');
+          userEvent.type(firstTextInputInFirstRow, '{enter}');
 
-          const checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
-          expect(checkboxInputInSecondRow).toHaveFocus();
+          const firstTextInputInSecondRow = screen.getByDisplayValue('2');
+          expect(firstTextInputInSecondRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSecondRow, '{enter}');
+          userEvent.type(firstTextInputInSecondRow, '{enter}');
 
-          const checkboxInputInThirdRow = screen.getByDisplayValue(
-            'Select Row - Venusaur'
-          );
-          expect(checkboxInputInThirdRow).toHaveFocus();
+          const firstTextInputInThirdRow = screen.getByDisplayValue('3');
+          expect(firstTextInputInThirdRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInThirdRow, '{enter}');
+          userEvent.type(firstTextInputInThirdRow, '{enter}');
 
-          const checkboxInputInFourthRow = screen.getByDisplayValue(
-            'Select Row - Charmander'
-          );
-          expect(checkboxInputInFourthRow).toHaveFocus();
+          const firstTextInputInFourthRow = screen.getByDisplayValue('4');
+          expect(firstTextInputInFourthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFourthRow, '{enter}');
+          userEvent.type(firstTextInputInFourthRow, '{enter}');
 
-          const checkboxInputInFifthRow = screen.getByDisplayValue(
-            'Select Row - Charmeleon'
-          );
-          expect(checkboxInputInFifthRow).toHaveFocus();
+          const firstTextInputInFifthRow = screen.getByDisplayValue('5');
+          expect(firstTextInputInFifthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFifthRow, '{enter}');
+          userEvent.type(firstTextInputInFifthRow, '{enter}');
 
-          const checkboxInputInSixthRow = screen.getByDisplayValue(
-            'Select Row - Charizard'
-          );
-          expect(checkboxInputInSixthRow).toHaveFocus();
+          const firstTextInputInSixthRow = screen.getByDisplayValue('6');
+          expect(firstTextInputInSixthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSixthRow, '{enter}');
+          userEvent.type(firstTextInputInSixthRow, '{enter}');
 
-          const checkboxInputInSeventhRow = screen.getByDisplayValue(
-            'Select Row - Squirtle'
-          );
-          expect(checkboxInputInSeventhRow).toHaveFocus();
+          const firstTextInputInSeventhRow = screen.getByDisplayValue('7');
+          expect(firstTextInputInSeventhRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSeventhRow, '{enter}');
+          userEvent.type(firstTextInputInSeventhRow, '{enter}');
 
-          const checkboxInputInEighthRow = screen.getByDisplayValue(
-            'Select Row - Wartortle'
-          );
-          expect(checkboxInputInEighthRow).toHaveFocus();
+          const firstTextInputInEighthRow = screen.getByDisplayValue('8');
+          expect(firstTextInputInEighthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInEighthRow, '{enter}');
+          userEvent.type(firstTextInputInEighthRow, '{enter}');
 
-          const checkboxInputInNinthRow = screen.getByDisplayValue(
-            'Select Row - Blastoise'
-          );
-          expect(checkboxInputInNinthRow).toHaveFocus();
+          const firstTextInputInNinthRow = screen.getByDisplayValue('9');
+          expect(firstTextInputInNinthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInNinthRow, '{enter}');
+          userEvent.type(firstTextInputInNinthRow, '{enter}');
 
           expect(document.body).toHaveFocus();
           expect(screen.queryAllByRole('textbox').length).toBe(0);
@@ -606,123 +554,88 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          let checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          let firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFirstRow, '{enter}');
+          userEvent.type(firstTextInputInFirstRow, '{enter}');
 
-          let checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
-          expect(checkboxInputInSecondRow).toHaveFocus();
+          let firstTextInputInSecondRow = screen.getByDisplayValue('2');
+          expect(firstTextInputInSecondRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSecondRow, '{enter}');
+          userEvent.type(firstTextInputInSecondRow, '{enter}');
 
-          let checkboxInputInThirdRow = screen.getByDisplayValue(
-            'Select Row - Venusaur'
-          );
-          expect(checkboxInputInThirdRow).toHaveFocus();
+          let firstTextInputInThirdRow = screen.getByDisplayValue('3');
+          expect(firstTextInputInThirdRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInThirdRow, '{enter}');
+          userEvent.type(firstTextInputInThirdRow, '{enter}');
 
-          let checkboxInputInFourthRow = screen.getByDisplayValue(
-            'Select Row - Charmander'
-          );
-          expect(checkboxInputInFourthRow).toHaveFocus();
+          let firstTextInputInFourthRow = screen.getByDisplayValue('4');
+          expect(firstTextInputInFourthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFourthRow, '{enter}');
+          userEvent.type(firstTextInputInFourthRow, '{enter}');
 
-          let checkboxInputInFifthRow = screen.getByDisplayValue(
-            'Select Row - Charmeleon'
-          );
-          expect(checkboxInputInFifthRow).toHaveFocus();
+          let firstTextInputInFifthRow = screen.getByDisplayValue('5');
+          expect(firstTextInputInFifthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFifthRow, '{enter}');
+          userEvent.type(firstTextInputInFifthRow, '{enter}');
 
-          let checkboxInputInSixthRow = screen.getByDisplayValue(
-            'Select Row - Charizard'
-          );
-          expect(checkboxInputInSixthRow).toHaveFocus();
+          let firstTextInputInSixthRow = screen.getByDisplayValue('6');
+          expect(firstTextInputInSixthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSixthRow, '{enter}');
+          userEvent.type(firstTextInputInSixthRow, '{enter}');
 
-          let checkboxInputInSeventhRow = screen.getByDisplayValue(
-            'Select Row - Squirtle'
-          );
-          expect(checkboxInputInSeventhRow).toHaveFocus();
+          let firstTextInputInSeventhRow = screen.getByDisplayValue('7');
+          expect(firstTextInputInSeventhRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSeventhRow, '{enter}');
+          userEvent.type(firstTextInputInSeventhRow, '{enter}');
 
-          let checkboxInputInEighthRow = screen.getByDisplayValue(
-            'Select Row - Wartortle'
-          );
-          expect(checkboxInputInEighthRow).toHaveFocus();
+          let firstTextInputInEighthRow = screen.getByDisplayValue('8');
+          expect(firstTextInputInEighthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInEighthRow, '{enter}');
+          userEvent.type(firstTextInputInEighthRow, '{enter}');
 
-          let checkboxInputInNinthRow = screen.getByDisplayValue(
-            'Select Row - Blastoise'
-          );
-          expect(checkboxInputInNinthRow).toHaveFocus();
+          let firstTextInputInNinthRow = screen.getByDisplayValue('9');
+          expect(firstTextInputInNinthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInNinthRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInNinthRow, '{shift}{enter}');
 
-          checkboxInputInEighthRow = screen.getByDisplayValue(
-            'Select Row - Wartortle'
-          );
-          expect(checkboxInputInEighthRow).toHaveFocus();
+          firstTextInputInEighthRow = screen.getByDisplayValue('8');
+          expect(firstTextInputInEighthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInEighthRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInEighthRow, '{shift}{enter}');
 
-          checkboxInputInSeventhRow = screen.getByDisplayValue(
-            'Select Row - Squirtle'
-          );
-          expect(checkboxInputInSeventhRow).toHaveFocus();
+          firstTextInputInSeventhRow = screen.getByDisplayValue('7');
+          expect(firstTextInputInSeventhRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSeventhRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInSeventhRow, '{shift}{enter}');
 
-          checkboxInputInSixthRow = screen.getByDisplayValue(
-            'Select Row - Charizard'
-          );
-          expect(checkboxInputInSixthRow).toHaveFocus();
+          firstTextInputInSixthRow = screen.getByDisplayValue('6');
+          expect(firstTextInputInSixthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSixthRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInSixthRow, '{shift}{enter}');
 
-          checkboxInputInFifthRow = screen.getByDisplayValue(
-            'Select Row - Charmeleon'
-          );
-          expect(checkboxInputInFifthRow).toHaveFocus();
+          firstTextInputInFifthRow = screen.getByDisplayValue('5');
+          expect(firstTextInputInFifthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFifthRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInFifthRow, '{shift}{enter}');
 
-          checkboxInputInFourthRow = screen.getByDisplayValue(
-            'Select Row - Charmander'
-          );
-          expect(checkboxInputInFourthRow).toHaveFocus();
+          firstTextInputInFourthRow = screen.getByDisplayValue('4');
+          expect(firstTextInputInFourthRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFourthRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInFourthRow, '{shift}{enter}');
 
-          checkboxInputInThirdRow = screen.getByDisplayValue(
-            'Select Row - Venusaur'
-          );
-          expect(checkboxInputInThirdRow).toHaveFocus();
+          firstTextInputInThirdRow = screen.getByDisplayValue('3');
+          expect(firstTextInputInThirdRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInThirdRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInThirdRow, '{shift}{enter}');
 
-          checkboxInputInSecondRow = screen.getByDisplayValue(
-            'Select Row - Ivysaur'
-          );
-          expect(checkboxInputInSecondRow).toHaveFocus();
+          firstTextInputInSecondRow = screen.getByDisplayValue('2');
+          expect(firstTextInputInSecondRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInSecondRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInSecondRow, '{shift}{enter}');
 
-          checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
         });
 
         it('leaves Edit Mode when the user presses Shift+Enter on any cell in the first row', () => {
@@ -733,13 +646,10 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFirstRow, '{shift}{enter}');
+          userEvent.type(firstTextInputInFirstRow, '{shift}{enter}');
 
           expect(document.body).toHaveFocus();
           expect(screen.queryAllByRole('textbox').length).toBe(0);
@@ -755,19 +665,16 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
-          userEvent.type(checkboxInputInFirstRow, '{escape}');
+          userEvent.type(firstTextInputInFirstRow, '{escape}');
 
-          const firstCellInTable = screen.getByRole('button', {
-            name: 'Select Row - Bulbasaur - Press Enter to edit',
+          const firstButtonCellInTable = screen.getByRole('button', {
+            name: '1 - Press Enter to edit',
           });
 
-          expect(firstCellInTable).toHaveFocus();
+          expect(firstButtonCellInTable).toHaveFocus();
           expect(screen.queryAllByRole('textbox').length).toBe(0);
         });
       });
@@ -781,13 +688,8 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.type(checkboxInputInFirstRow, '{escape}');
+          const firstTextInputInFirstRow = screen.getByDisplayValue('1');
+          expect(firstTextInputInFirstRow).toHaveFocus();
 
           userEvent.click(document.body);
 
@@ -804,14 +706,6 @@ describe('EditableTableWithWidgetTypes', () => {
             />
           );
           enterEditMode();
-
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
 
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           expect(firstTextInputInFirstRow).toHaveFocus();
@@ -846,14 +740,6 @@ describe('EditableTableWithWidgetTypes', () => {
           );
           enterEditMode();
 
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
-
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           expect(firstTextInputInFirstRow).toHaveFocus();
 
@@ -881,14 +767,6 @@ describe('EditableTableWithWidgetTypes', () => {
             />
           );
           enterEditMode();
-
-          // TODO: The checkbox shouldn't turn into a text input when in Edit Mode
-          const checkboxInputInFirstRow = screen.getByDisplayValue(
-            'Select Row - Bulbasaur'
-          );
-          expect(checkboxInputInFirstRow).toHaveFocus();
-
-          userEvent.tab();
 
           const firstTextInputInFirstRow = screen.getByDisplayValue('1');
           expect(firstTextInputInFirstRow).toHaveFocus();
