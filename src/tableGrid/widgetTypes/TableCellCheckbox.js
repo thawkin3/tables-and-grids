@@ -17,7 +17,6 @@ export const TableCellCheckbox = ({
     <td onClick={setIsCurrentFocusedCell}>
       <input
         type="checkbox"
-        checked={tableCellData.value}
         aria-label={tableCellData['aria-label']}
         tabIndex={-1}
         ref={tableCellRef}
