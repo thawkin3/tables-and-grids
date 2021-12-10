@@ -92,22 +92,6 @@ export const _EditableTableWithWidgetTypes = () => (
     </p>
     <ul>
       <li>
-        Should the tab stops only have one per cell? Right now the checkbox cell
-        and the link cell have two tab stops, one for the cell and one for the
-        checkbox/link, but there should probably be just the one tab stop on the
-        checkbox/link and not the cell. Or... maybe that would only be true when
-        the table functions as a grid? Because if I want to visit one of the
-        links, for example, then I would need to be able to tab to it when in
-        View Mode, and we would need to differentiate a way between pressing a
-        key to visit the link vs. pressing a key to enter Edit Mode.
-      </li>
-      <li>
-        When in Edit Mode, the checkbox widget should not change. Right now it
-        changes to a text input just like all the other widgets, but it should
-        be unaffected and stay as a checkbox widget.
-      </li>
-      <li>Update tests once the above two issues are resolved.</li>
-      <li>
         Pressing Escape anywhere on the table should exit Edit Mode. This is
         probably a bug in the Basic Editable Table too.
       </li>
