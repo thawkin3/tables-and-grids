@@ -3,6 +3,7 @@ import { basicPokemonData } from './fixtures/basicPokemonData';
 import { pokemonDataWithWidgetTypes } from './fixtures/pokemonDataWithWidgetTypes';
 import { BasicEditableTable } from './basicEditableTable/BasicEditableTable';
 import { EditableTableWithWidgetTypes } from './editableTableWithWidgetTypes/EditableTableWithWidgetTypes';
+import { EditableTableGrid } from './editableTableGrid/EditableTableGrid';
 
 export default {
   title: 'Editable Tables',
@@ -206,7 +207,9 @@ export const _EditableTableGrid = () => (
       <b>WORK IN PROGRESS. TODO:</b>
     </p>
     <ul>
-      <li>Create example</li>
+      <li>Add documentation here</li>
+      <li>Audit current functionality and log bugs</li>
     </ul>
+    <EditableTableGrid tableData={pokemonDataWithWidgetTypes} />
   </>
 );
